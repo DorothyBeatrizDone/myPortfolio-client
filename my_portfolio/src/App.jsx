@@ -8,9 +8,7 @@ import ProjectUpload from "./components/ProjectUpload/ProjectUpload";
 import ProjectDetail from "./components/ProjectDetail/ProjectDetail";
 import Profile from "./components/Profile/Profile";
 import EditProfile from "./components/Profile/EditProfile";
-import Feedback from "./components/Feedback/Feedback";
-import Settings from "./components/Settings/Settings";
-import Notifications from "./components/Notifications/Notifications";
+
 import "./App.scss";
 
 const App = () => {
@@ -26,9 +24,6 @@ const App = () => {
           <Route path="/project/:id" element={<ProjectDetail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/notifications" element={<Notifications />} />
         </Routes>
       </BrowserRouter>
     </div>
