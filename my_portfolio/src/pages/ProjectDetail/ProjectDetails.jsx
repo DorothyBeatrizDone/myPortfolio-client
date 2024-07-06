@@ -29,15 +29,54 @@ const ProjectDetailPage = () => {
   if (error) return <p>Error loading project details</p>;
 
     <div>
-        <h1>{project.title}</h1>
-        <h2>Description</h2>
-        <p>{project.description}</p>
-        <h2>Subject categories</h2>
-        <h2>Skills categories</h2>
-        <h2>Visibility</h2>
-        <p>{project.visibility}</p>
-        <h2>Tags</h2>
-
+        <div>
+          <button type ="submit">Edit</button>
+          <h1>{project.title}</h1>
+        </div>
+        <div className='project__image'>
+          {/* but what if there are several images. For loop or map function??*/}
+          <h2>Uploaded work</h2>
+        </div>
+        <div className = 'project-info'>
+          <div className = 'project-info__section' >
+            <h2>Description</h2>
+            <p>{project.description}</p>
+          </div>
+          <div className = "project-info__section">
+            <h2>Subject categories</h2>
+            <div className="project__subjects">
+              {project.subject.map((subj) => (
+                <div className="project__tag" key={project.id}>
+                    {subj}
+                </div>
+                ))}
+            </div>
+          </div>
+          <div className = "project-info__section">
+            <h2>Skills categories</h2>
+            <div className="project__skills">
+              {project.skills.map((skill) => (
+                <div className="project__tag" key={project.id}>
+                    {skill}
+                </div>
+                ))}
+            </div>
+          </div>
+          <div className = "project-info__section">
+            <h2>Visibility</h2>
+            <p>{project.visibility}</p>
+          </div>
+          <div className = "project-info__section">
+            <h2>Tags</h2>
+            <div className="project__tags">
+              {project.tags.map((tag) => (
+                <div className="project__tag" key={project.id}>
+                    {tag}
+                </div>
+                ))}
+            </div>
+          </div>
+        </div>
     </div>
 
   return
