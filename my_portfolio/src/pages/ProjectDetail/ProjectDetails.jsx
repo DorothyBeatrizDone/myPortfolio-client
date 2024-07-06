@@ -30,8 +30,13 @@ const ProjectDetailPage = () => {
 
     <div>
         <h1>{project.title}</h1>
+        <h2>Description</h2>
         <p>{project.description}</p>
-        <p>Visibility: {project.visibility}</p>
+        <h2>Subject categories</h2>
+        <h2>Skills categories</h2>
+        <h2>Visibility</h2>
+        <p>{project.visibility}</p>
+        <h2>Tags</h2>
 
     </div>
 
