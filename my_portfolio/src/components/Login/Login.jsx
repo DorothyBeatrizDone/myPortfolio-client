@@ -7,7 +7,7 @@ const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
 
-const loginURL = `${baseUrl}/login`;
+const loginURL = `${baseUrl}/users/login`;
 
 const Login = () => {
   const [error, setError] = useState("");
