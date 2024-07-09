@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
-const profileUrl = `${baseUrl}/profile`;
+const profileUrl = `${baseUrl}/users/profile`;
 
 import "./Profile.scss";
 

@@ -6,7 +6,7 @@ import "./Enroll.scss";
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
-const enrollURL = `${baseUrl}/enroll`;
+const enrollURL = `${baseUrl}/users/enroll`;
 
 const Enroll = () => {
   const [error, setError] = useState("");
@@ -84,7 +84,7 @@ const Enroll = () => {
 
         <div className="form__entries">
           <label className="form__label">Confirm Password: </label>
-          <input className="form__input" type="confirmPassword" name="confirmPassword" />
+          <input className="form__input" type="password" name="confirmPassword" />
         </div>
         <button className="form__button" type="submit">
           Enroll
