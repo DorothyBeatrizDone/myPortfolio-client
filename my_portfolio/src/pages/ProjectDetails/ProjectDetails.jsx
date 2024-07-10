@@ -29,48 +29,49 @@ const ProjectDetails = () => {
   if (error) return <p>Error loading project details</p>;
 
   return(
-    <section className='project-details'>
+    <section className='project'>
         <div className='project__header'>
           <h1 className="project__title">{project.title}</h1>
           <button className ="edit-button" type ="submit">Edit</button>
         </div>
-        <div className="project__info">
-          <div className='project__image'>
+        <div className="project-info">
+          <div className='project-info__image'>
             <img src={project} alt="project image"/>
           </div>
           <div className = 'project-info__section' >
-            <h2>Description</h2>
-            <p>{project.description}</p>
+            <h2 className="project-info__label">Description</h2>
+            <p className = "project-info__description">{project.description}</p>
           </div>
           <div className = "project-info__section">
-            <h2>Subject categories</h2>
-            <div className="project__subjects">
+            <h2 className="project-info__label">Subject categories</h2>
+            <div className="project-info__tags">
               {project.subject.map((subj) => (
-                <div className="project__tag" key={project.id}>
+                <div className="project-info__tag" key={project.id}>
                     {subj}
                 </div>
                 ))}
             </div>
           </div>
           <div className = "project-info__section">
-            <h2>Skills categories</h2>
-            <div className="project__skills">
+            <h2 className="project-info__label">Skills categories</h2>
+            <div className="project-info__tags">
               {project.skills.map((skill) => (
-                <div className="project__tag" key={project.id}>
+                <div className="project-info__tag" key={project.id}>
                     {skill}
                 </div>
                 ))}
             </div>
           </div>
           <div className = "project-info__section">
-            <h2>Visibility</h2>
+            <h2 className="project-info__label">Visibility</h2>
             <p>{project.visibility}</p>
           </div>
           <div className = "project-info__section">
-            <h2>Tags</h2>
-            <div className="project__tags">
+            <h2 className="project-info__label">Tags</h2>
+            {/*But did I make general tags?? */}
+            <div className="project-info__tags">
               {project.tags.map((tag) => (
-                <div className="project__tag" key={project.id}>
+                <div className="project-info__tag" key={project.id}>
                     {tag}
                 </div>
                 ))}

@@ -2,3 +2,51 @@
 @use '../../styles/partials/typography.scss' as *;
 @use '../../styles/partials/variables.scss' as *;
 @use '../../styles/partials/globals.scss' as *;
+
+.project{
+    padding: $tablet-side-margin;
+    &__header{
+        @include page-header;
+    }
+    &__title{
+        //todo
+    }
+    .edit-button{
+        @include cta-secondary;
+        min-width: auto;
+        padding: 0.5rem 1rem;
+    }
+
+}
+.project-info{
+
+    &__image{
+        margin-bottom: $after-text-block-padding;
+        .img{
+            width: 100%;
+            max-width: 100%;
+            border-radius: $border-radius;
+            margin-bottom: $after-text-block-padding;
+        }
+    }
+    &__section{
+        margin-bottom: $after-text-block-padding;
+
+    }
+    &__label{
+        @include sub-header;
+        margin-bottom: $after-subheading-padding;
+    }
+    &__description{
+        font-size:$font-size-small; 
+    }
+    &__tags{
+        @include flex;
+        flex-wrap:wrap;
+        gap: $after-label-padding;
+    }
+    &__tag{
+        @include tag;
+    }
+
+}
