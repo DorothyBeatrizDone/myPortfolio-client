@@ -26,13 +26,18 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <section className="projects-page">
-      <h1>Your Dashboard</h1>
+    <section className="dashboard-page">
+      <div clasName="dashboard-container">
+        <div className="dashboard-header">
+          <h1>Dashboard</h1>
+        </div>
+      </div>
+      <div className = "project-list">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
+      </div>
       <ProjectUpload onProjectCreate={fetchProjects} />
-
-      {projects.map((project) => (
-        <ProjectCard key={project.id} project={project} />
-      ))}
     </section>
   );
 };

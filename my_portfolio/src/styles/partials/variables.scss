@@ -60,14 +60,22 @@ $desktop-breakpoint: 1280px;
 // ------------------------------ //
 // Margins & Padding
 // ------------------------------ //
-$mobile-side-margin: 1rem;
-$tablet-side-margins: 2rem;
+$mobile-side-margin: 1rem; 
+$tablet-side-margin: 2rem; 
+$desktop-side-margin: 3rem;
 
-$after-heading-padding: 1.5rem;
-$after-text-block-padding: 1rem;
-$after-subheading-padding: 0.25rem;
+//Padding after elements
+$after-heading-padding: 1.5rem; 
+$after-text-block-padding: 1rem; 
+$after-subheading-padding: 0.25rem; 
+$after-label-padding:  0.25rem;
 
-$after-label-padding: 0.25rem;
+//Input and button padding:
+$input-padding: 0.75rem; 
+$button-padding: 1rem; 
+$input-margin-bottom: 1.25rem; 
+$form-margin: 2.5rem;
+
 // ------------------------------ //
 // Element Styling
 // ------------------------------ //

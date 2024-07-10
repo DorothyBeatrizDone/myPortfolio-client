@@ -3,15 +3,22 @@
 @use '../../styles/partials/variables.scss' as *;
 .login{
     @include flex(row,center,center);
-        background-color: $myportfolio-indigo;
-        height: $login-container-height;
+    background-color: $myportfolio-indigo;
+    height: $login-container-height;
+    padding: $mobile-side-margin;
 
+    @include tablet{
+        padding:$tablet-side-margin;
+    }
+    @include desktop{
+        padding:$desktop-side-margin
+    }
     &__card{
         background: $white;
-        padding: $mobile-side-margin;
+        padding: $form-margin;
         border-radius: $border-radius;
         box-shadow: $box-shadow;
-        width: 400px;
+        width: 5rem;
         max-width: 100%;
     }
     &__header-container{
@@ -20,49 +27,42 @@
     }
     &__header{
         @include page-header;
-        font-size: 24px;
-        margin-bottom: 10px;
+        margin-bottom: $after-subheading-padding;
         font-weight: bold;
     }
     &__tabs{
         @include flex(row, center,center);
-        margin-bottom: 20px;
-
+        margin-bottom: $after-text-block-padding;
     }
 
     &__button{
-        background: none;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
+        @include cta-primary;
     
         &--active{
-            color: #fff;
-            background-color: #e53935;
-            border-radius: 20px;
+            color: $white;
+            background-color: $graphite;
+            border-radius: $border-radius;
         }
     }
 }
 form{
     &__entries{
-        margin-bottom: 20px;
+        margin-bottom: $input-margin-bottom;
     }
     &__label{
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: $after-label-padding;
         font-weight: bold;
     }
     &__input{
         width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+        padding: $input-padding;
+        border: 1px solid $graphite;
+        border-radius: $border-radius-small;
     }
     &__footer{
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
+        @include flex(row, space-between,center);
+        margin-bottom: $after-text-block-padding
     }
     &__button{
         @include form-button
