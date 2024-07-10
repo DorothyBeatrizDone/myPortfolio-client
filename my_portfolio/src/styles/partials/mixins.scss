@@ -33,8 +33,8 @@
 @mixin cta-primary {
   border-radius: $border-radius;
   min-width: 100%;
-  background-color: $instock-indigo;
-  border: 1px solid $instock-indigo;
+  background-color: $myporfolio-indigo;
+  border: 1px solid $myportfolio-indigo;
   height: 2.25rem;
   @include link-label-button;
   color: $white;
@@ -63,8 +63,8 @@
 
   &:hover {
     background-color: $white;
-    border: 1px solid $instock-indigo;
-    color: $instock-indigo;
+    border: 1px solid $myportfolio-indigo;
+    color: $myportfolio-indigo;
     cursor: pointer;
   }
   @include tablet {
@@ -112,7 +112,7 @@
 
 @mixin text-field-active {
   border-radius: $border-radius;
-  border: 2px solid $instock-indigo;
+  border: 2px solid $myportfolio-indigo;
   height: 2rem;
   padding: 0 1rem;
   @include tablet {
@@ -134,7 +134,7 @@
 // Text Links
 // ------------------------------//
 @mixin text-link {
-  color: $instock-indigo;
+  color: $myportfolio-indigo;
 
   &:hover {
     text-decoration: underline;
@@ -145,7 +145,7 @@
 // ------------------------------//
 // Tags
 // ------------------------------//
-@mixin tag-in-stock {
+@mixin tag {
   padding: 0 0.5rem;
   border-radius: $border-radius;
   background-color: $green-low-opacity;
@@ -157,23 +157,12 @@
   }
 }
 
-@mixin tag-out-of-stock {
-  padding: 0 0.5rem;
-  border-radius: $border-radius;
-  background-color: $red-low-opacity;
-  color: $red;
-  height: 1.5rem;
-
-  @include tablet {
-    height: 1.625rem;
-  }
-}
 
 // ------------------------------//
 // Typography
 // ------------------------------//
 @mixin page-header {
-  color: $instock-black;
+  color: $myportfolio-black;
   font-family: "Titillium Web";
   font-size: 1.75rem;
   font-weight: 600;
@@ -186,7 +175,7 @@
 }
 
 @mixin sub-header {
-  color: $instock-black;
+  color: $myportfolio-black;
   font-family: "Titillium Web";
   font-weight: 600;
   font-size: 1.25rem;
@@ -199,7 +188,7 @@
 }
 
 @mixin link-label-button {
-  color: $instock-black;
+  color: $myportfolio-black;
   font-family: "Titillium Web";
   font-weight: 600;
   font-size: 0.8125rem;
@@ -234,7 +223,7 @@
 }
 
 @mixin body-large {
-  color: $instock-black;
+  color: $myportfolio-black;
   font-family: "Titillium Web";
   font-weight: 400;
   font-size: 0.9375rem;
@@ -247,7 +236,7 @@
 }
 
 @mixin body-medium {
-  color: $instock-black;
+  color: $myportfolio-black;
   font-family: "Titillium Web";
   font-weight: 400;
   font-size: 0.8125rem;
@@ -260,7 +249,7 @@
 }
 
 @mixin body-small {
-  color: $instock-black;
+  color: $myportfolio-black;
   font-family: "Titillium Web";
   font-weight: 400;
   font-size: 0.6875rem;

@@ -1,3 +1,7 @@
+@use '../../styles/partials/mixins.scss' as *;
+@use '../../styles/partials/typography.scss' as *;
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/globals.scss' as *;
 .project {
     background: $white;
     padding: $form-margin;
@@ -19,19 +23,22 @@
     }
 
     &__title {
-        //font-size: $font-size-large;
+        font-size: $font-size-large;
         margin-bottom: $after-subheading-padding;
       }
 
     &__description {
-        //font-size: $font-size-medium;
+        font-size: $font-size-medium;
         margin-bottom: $after-text-block-padding;
     }
     &__info{
         text-align: left;
-        //font-size: $font-size-small;
+        font-size: $font-size-small;
         &--item{
             margin-bottom: $after-label-padding;
         }
+    }
+    &__tag{
+        @include tag;
     }
 }

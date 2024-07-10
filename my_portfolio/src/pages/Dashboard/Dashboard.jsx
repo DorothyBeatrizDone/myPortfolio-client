@@ -26,11 +26,9 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <section className="dashboard-page">
-      <div clasName="dashboard-container">
-        <div className="dashboard-header">
-          <h1>Dashboard</h1>
-        </div>
+    <section className="dashboard">
+      <div className="dashboard__header">
+        <h1 className="dashboard__title">Dashboard</h1>
       </div>
       <div className = "project-list">
         {projects.map((project) => (

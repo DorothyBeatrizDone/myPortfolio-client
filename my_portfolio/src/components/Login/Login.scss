@@ -1,6 +1,8 @@
 @use '../../styles/partials/mixins.scss' as *;
 @use '../../styles/partials/typography.scss' as *;
 @use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/globals.scss' as *;
+
 .login{
     @include flex(row,center,center);
     background-color: $myportfolio-indigo;

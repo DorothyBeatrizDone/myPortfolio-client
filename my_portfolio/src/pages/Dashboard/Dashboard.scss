@@ -1,0 +1,27 @@
+@use '../../styles/partials/mixins.scss' as *;
+@use '../../styles/partials/typography.scss' as *;
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/globals.scss' as *;
+.dashboard{
+    padding: $mobile-side-margin;
+    background-color: $cloud;
+    
+    @include tablet {
+      padding: $tablet-side-margin;
+    }
+  
+    @include desktop {
+      padding: $desktop-side-margin;
+    }  
+    &__header{
+        text-align: center;
+        background-color: $myportfolio-indigo;
+        padding: $after-heading-padding;
+        color: $white;
+        font-size: $font-size-large;
+        border-radius: $border-radius;
+    }
+    &__title{
+        margin:0;
+    }
+}

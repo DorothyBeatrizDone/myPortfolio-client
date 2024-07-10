@@ -29,16 +29,15 @@ const ProjectDetails = () => {
   if (error) return <p>Error loading project details</p>;
 
   return(
-    <div>
-        <div>
-          <button type ="submit">Edit</button>
-          <h1>{project.title}</h1>
+    <section className='project-details'>
+        <div className='project__header'>
+          <h1 className="project__title">{project.title}</h1>
+          <button className ="edit-button" type ="submit">Edit</button>
         </div>
-        <div className='project__image'>
-          {/* but what if there are several images. For loop or map function??*/}
-          <h2>Uploaded work</h2>
-        </div>
-        <div className = 'project-info'>
+        <div className="project__info">
+          <div className='project__image'>
+            <img src={project} alt="project image"/>
+          </div>
           <div className = 'project-info__section' >
             <h2>Description</h2>
             <p>{project.description}</p>
@@ -78,7 +77,7 @@ const ProjectDetails = () => {
             </div>
           </div>
         </div>
-    </div>
+    </section>
   )
 };
 export default ProjectDetails;
