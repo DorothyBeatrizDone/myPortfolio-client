@@ -34,36 +34,33 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="login">
+      <div className="login__card">
+        <div className= "login__header-container">
+          <h1 className="login__header">MyPortfolio</h1>
+        </div>
+        <div className = "login__tabs">
+          <button className="login__button--active">Login</button>
+          <button className="login__button">Sign Up</button>
+        </div>
+      </div>
       <form onSubmit={handleLogin} className="form">
         <div className="form__entries">
-          <label className="form__label">Email:</label>
-          <input type="text" name="email" />
+          <label htmlFor = "email" className="form__label">Email:</label>
+          <input type="text" id="email" name="email" className="form__input"/>
         </div>
-
         <div className="form__entries">
-          <label className="form__label">Password:</label>
-          <input type="password" name="password" />
+          <label htmlFor = "password" className="form__label">Password:</label>
+          <input type="password"  id="password" name="password"  className="form__input"/>
         </div>
-
+        <div className="form__footer">
+            <a href="/enroll">Forgot Password?</a>
+            <a href="/enroll">Create an Account</a>
+          </div>
         <button className="form__button" type="submit">
           Login
         </button>
       </form>
-
-      {error && (
-        <label
-          style={{
-            color: "white",
-            backgroundColor: "red",
-            fontSize: "1.3rem",
-          }}
-        >
-          {error}
-        </label>
-      )}
-      <Link to="/enroll">Enroll</Link>
     </div>
   );
 };

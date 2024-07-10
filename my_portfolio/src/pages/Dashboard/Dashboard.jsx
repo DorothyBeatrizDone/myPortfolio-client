@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProjectUpload from '../components/ProjectUpload';
+import ProjectUpload from '../ProjectUpload/ProjectUpload';
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
-const projectsUrl = `${baseUrl}/profile`;
+const projectsUrl = `${baseUrl}/users/profile`;
 
 //Gets a list (in the form of cards) of the user's projects.
 const Dashboard = () => {

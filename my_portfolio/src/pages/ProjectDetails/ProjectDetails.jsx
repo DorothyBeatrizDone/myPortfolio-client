@@ -5,7 +5,7 @@ const PORT = import.meta.env.VITE_SERVER_PORT;
 import axios from 'axios';
 const baseUrl = `http://${host}:${PORT}`;
 
-const ProjectDetailPage = () => {
+const ProjectDetails = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
 
@@ -28,6 +28,7 @@ const ProjectDetailPage = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading project details</p>;
 
+  return(
     <div>
         <div>
           <button type ="submit">Edit</button>
@@ -78,6 +79,6 @@ const ProjectDetailPage = () => {
           </div>
         </div>
     </div>
-
-  return
-}
+  )
+};
+export default ProjectDetails;

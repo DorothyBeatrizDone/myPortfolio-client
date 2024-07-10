@@ -1,0 +1,292 @@
+@use "./_variables.scss" as *;
+@use "./_typography" as *;
+
+// ------------------------------ //
+// Break Points
+// ------------------------------ //
+@mixin tablet {
+  @media screen and (min-width: $tablet-breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $desktop-breakpoint) {
+    @content;
+  }
+}
+
+// ------------------------------//
+// Utility
+// ------------------------------//
+@mixin flex($direction: row, $justify: flex-start, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// ------------------------------//
+// CTA Buttons
+// ------------------------------//
+
+@mixin cta-primary {
+  border-radius: $border-radius;
+  min-width: 100%;
+  background-color: $instock-indigo;
+  border: 1px solid $instock-indigo;
+  height: 2.25rem;
+  @include link-label-button;
+  color: $white;
+
+  @include tablet {
+    padding: 0 1rem;
+    min-width: fit-content;
+    height: 2.375rem;
+  }
+  &:hover {
+    background-color: $graphite;
+    border: 1px solid $graphite;
+    color: $white;
+    cursor: pointer;
+  }
+}
+
+@mixin cta-secondary {
+  border-radius: $border-radius;
+  min-width: 100%;
+  background-color: $white;
+  border: 1px solid $cloud;
+  height: 2.25rem;
+  @include link-label-button;
+  color: $slate;
+
+  &:hover {
+    background-color: $white;
+    border: 1px solid $instock-indigo;
+    color: $instock-indigo;
+    cursor: pointer;
+  }
+  @include tablet {
+    padding: 0 1rem;
+    min-width: fit-content;
+    height: 2.375rem;
+  }
+}
+@mixin cta-delete {
+  border-radius: $border-radius;
+  min-width: 100%;
+  background-color: $red;
+  border: 1px solid $red;
+  height: 2.25rem;
+  @include link-label-button;
+  color: $white;
+
+  @include tablet {
+    padding: 0 1rem;
+    min-width: fit-content;
+    height: 2.375rem;
+  }
+
+  &:hover {
+    background-color: $graphite;
+    border: 1px solid $graphite;
+    color: $white;
+    cursor: pointer;
+  }
+}
+
+// ------------------------------//
+// Text Fields
+// ------------------------------//
+
+@mixin text-field-default {
+  border-radius: $border-radius;
+  border: 2px solid $cloud;
+  height: 2rem;
+  padding: 0 1rem;
+  @include tablet {
+    height: 2.125rem;
+  }
+}
+
+@mixin text-field-active {
+  border-radius: $border-radius;
+  border: 2px solid $instock-indigo;
+  height: 2rem;
+  padding: 0 1rem;
+  @include tablet {
+    height: 2.125rem;
+  }
+}
+
+@mixin text-field-error {
+  border-radius: $border-radius;
+  border: 2px solid $red;
+  height: 2rem;
+  padding: 0 1rem;
+  @include tablet {
+    height: 2.125rem;
+  }
+}
+
+// ------------------------------//
+// Text Links
+// ------------------------------//
+@mixin text-link {
+  color: $instock-indigo;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+// ------------------------------//
+// Tags
+// ------------------------------//
+@mixin tag-in-stock {
+  padding: 0 0.5rem;
+  border-radius: $border-radius;
+  background-color: $green-low-opacity;
+  color: $green;
+  height: 1.5rem;
+
+  @include tablet {
+    height: 1.625rem;
+  }
+}
+
+@mixin tag-out-of-stock {
+  padding: 0 0.5rem;
+  border-radius: $border-radius;
+  background-color: $red-low-opacity;
+  color: $red;
+  height: 1.5rem;
+
+  @include tablet {
+    height: 1.625rem;
+  }
+}
+
+// ------------------------------//
+// Typography
+// ------------------------------//
+@mixin page-header {
+  color: $instock-black;
+  font-family: "Titillium Web";
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 2.25rem;
+
+  @include tablet {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+
+@mixin sub-header {
+  color: $instock-black;
+  font-family: "Titillium Web";
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+
+  @include tablet {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+@mixin link-label-button {
+  color: $instock-black;
+  font-family: "Titillium Web";
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+
+  @include tablet {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+}
+@mixin form-button{
+  width: 100%;
+  padding: $mobile-side-margin;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $myportfolio-indigo;
+  color: $white;
+  font-size: 1.25rem;
+}
+
+@mixin table-header {
+  color: $slate;
+  font-family: "Titillium Web";
+  font-weight: 600;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+
+  @include tablet {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+}
+
+@mixin body-large {
+  color: $instock-black;
+  font-family: "Titillium Web";
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.625rem;
+
+  @include tablet {
+    font-size: 1rem;
+    line-height: 1.75rem;
+  }
+}
+
+@mixin body-medium {
+  color: $instock-black;
+  font-family: "Titillium Web";
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+
+  @include tablet {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+}
+
+@mixin body-small {
+  color: $instock-black;
+  font-family: "Titillium Web";
+  font-weight: 400;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+
+  @include tablet {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+}
+
+// ------------------------------//
+// Reset
+// ------------------------------//
+@mixin header-reset {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+// ------------------------------//
+//Header Mixins
+// ------------------------------//
+
+@mixin header__navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: $tablet-side-margins;
+}

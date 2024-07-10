@@ -1,0 +1,76 @@
+@use '../../styles/partials/mixins.scss' as *;
+@use '../../styles/partials/typography.scss' as *;
+@use '../../styles/partials/variables.scss' as *;
+.login{
+    @include flex(row,center,center);
+        background-color: $myportfolio-indigo;
+        height: $login-container-height;
+
+    &__card{
+        background: $white;
+        padding: $mobile-side-margin;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        width: 400px;
+        max-width: 100%;
+    }
+    &__header-container{
+        text-align: center;
+        margin-bottom: $after-heading-padding;
+    }
+    &__header{
+        @include page-header;
+        font-size: 24px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    &__tabs{
+        @include flex(row, center,center);
+        margin-bottom: 20px;
+
+    }
+
+    &__button{
+        background: none;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    
+        &--active{
+            color: #fff;
+            background-color: #e53935;
+            border-radius: 20px;
+        }
+    }
+}
+form{
+    &__entries{
+        margin-bottom: 20px;
+    }
+    &__label{
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    &__input{
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    &__footer{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    &__button{
+        @include form-button
+    }
+}
+
+
+
+
+
+

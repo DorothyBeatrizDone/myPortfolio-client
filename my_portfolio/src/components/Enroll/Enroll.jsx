@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "./Enroll.scss";
+import { isValidEmail,isPasswordMatch } from "../../utils/checkValidInputs";
 
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
@@ -11,19 +12,6 @@ const enrollURL = `${baseUrl}/users/enroll`;
 const Enroll = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  //Perform validation
-  const isPasswordMatch = (p1, p2) =>{
-    return p1 === p2;
-  }
-  const isValidEmail = (email) =>{
-    //https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
-    return String(email)
-    .toLowerCase()
-    .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
-    };
 
   const handleEnroll = async (event) => {
     event.preventDefault();
