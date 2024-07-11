@@ -62,7 +62,7 @@ const Dashboard = () => {
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
-      <ProjectUpload onProjectCreate={fetchProjects} />
+      {/*<ProjectUpload onProjectCreate={fetchProjects} />*/}
     </section>
   );
 };

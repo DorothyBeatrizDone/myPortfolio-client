@@ -5,6 +5,10 @@ const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const SERVER_URL = `http://${host}:${PORT}`;
 
+//IMPORTANT
+//        subject: subject.value.split(',').map(item => item.trim()),
+
+
 const ProjectUpload = ({onProjectCreate}) => {
 
 
@@ -13,29 +17,50 @@ const ProjectUpload = ({onProjectCreate}) => {
   //Also, I think I need to pass the user_id here. How do I get that again?
   //no, we don't pass the id, but the backend has req.user.id... remember to print req. where
   //does req.user come in?
+
   const [skills, setSkills] = useState([]);
-  const [skill, setSkill] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [files, setFiles] = useState([]);
+  //despite it's confusing name in the DB, subject is actaully a list
+  //note that it is written in JSON format!!
+  const [subjects, setSubjects] = useState([]);
+  const [failedAuth, setFailedAuth] = useState(false);
+  const [error, setError] = useState("");
 
   const handleFormSubmit = async(e) => {
     e.preventDefault();
     const { postTitle, projectUrl, endTime, visibilitySettings, subject, skill, projectDescription } = e.target;
+    const token = localStorage.getItem('JWTtoken');
+    if (!token) {
+      setFailedAuth(true);
+      return;
+    }
+
+    //Collect the user input 
+    const uploadedForm = {
+      title: e.target.postTitle.value,
+      project_url: e.target.projectUrl.value,
+      end_time: e.target.endTime.value,
+      visibility: e.target.visibilitySettings.value, 
+      skills: e.target.skills.value,
+      subject: e.target.subject.value,
+      tags: e.target.tags.value,
+      files:e.target.files.value,
+      description: e.target.projectDescription.value,
+    };
 
     try {
-        const response = await axios.post(`${SERVER_URL}/projects`,
-            {
-              title: postTitle.value,
-              project_url: projectUrl.value,
-              end_time: endTime.value,
-              visibility_settings: visibilitySettings.value,
-              skill : skill.value, 
-              subject: subject.value,
-              project_description: projectDescription.value,
+      const response = await axios.post(`${SERVER_URL}/projects/`,
+          uploadedForm, {
+            headers: {
+              Authorization: `Bearer ${token}`
             }
-          );
-          onProjectCreate();
-          e.target.reset();
+          }
+        );
+        onProjectCreate();
+        e.target.reset();
     } catch (error) {
-        console.log('Error creating a new project:', error);
+        setError('Error creating a new project.');
     }
     // Post to API (remember to use `withCredentials`)
 
