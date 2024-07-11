@@ -2,11 +2,10 @@
 @use '../../styles/partials/typography.scss' as *;
 @use '../../styles/partials/variables.scss' as *;
 @use '../../styles/partials/globals.scss' as *;
-
 .login{
     @include flex(row,center,center);
     background-color: $myportfolio-indigo;
-    height: $login-container-height;
+    height: $height;
     padding: $mobile-side-margin;
 
     @include tablet{
@@ -60,7 +59,7 @@ form{
         width: 100%;
         padding: $input-padding;
         border: 1px solid $graphite;
-        border-radius: $border-radius-small;
+        border-radius: $border-radius;
     }
     &__footer{
         @include flex(row, space-between,center);

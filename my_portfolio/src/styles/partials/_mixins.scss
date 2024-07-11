@@ -1,5 +1,5 @@
-@use "./_variables.scss" as *;
-@use "./_typography" as *;
+@use "./variables" as *;
+@use "./typography" as *;
 
 // ------------------------------ //
 // Break Points
@@ -33,7 +33,7 @@
 @mixin cta-primary {
   border-radius: $border-radius;
   min-width: 100%;
-  background-color: $myporfolio-indigo;
+  background-color: $myportfolio-indigo;
   border: 1px solid $myportfolio-indigo;
   height: 2.25rem;
   @include link-label-button;

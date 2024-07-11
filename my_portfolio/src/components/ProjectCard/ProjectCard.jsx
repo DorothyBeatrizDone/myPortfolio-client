@@ -1,3 +1,5 @@
+import './ProjectCard.scss';
+
 const ProjectCard = ({ project }) => {
     const formatTimestamp = (timestamp) => {
       // Return the project timestamp formatted as 'month/day/year, hr:min:sec'
@@ -6,6 +8,7 @@ const ProjectCard = ({ project }) => {
 
     return (
       <article className="project">
+        {/*
         <div className="project__main-image">
           <img
             className="project__image"
@@ -13,6 +16,7 @@ const ProjectCard = ({ project }) => {
             alt={`project image`}
           />
         </div>
+        */}
         <div className="project__details">
           <h2 className="project__title">{project.title}</h2>
           <p className="project__description">{project.description}</p>
