@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import DynamicForm from '../../components/DynamicForm/DynamicForm';
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const SERVER_URL = `http://${host}:${PORT}`;
@@ -69,6 +69,7 @@ const ProjectUpload = ({onProjectCreate}) => {
       <form className="post-form" onSubmit={handleFormSubmit}>
         <h3>Create New Post</h3>
         <div className="post-form__fields">
+          {/*Title */}
           <div className="post-form__field">
             <label htmlFor="postTitle" className="post-form__label">
               Project Title
@@ -81,17 +82,19 @@ const ProjectUpload = ({onProjectCreate}) => {
               required
             />
           </div>
+          {/*URL*/}
           <div className="post-form__field">
-          <label htmlFor="projectUrl" className="post-form__label">
-              Project URL
-            </label>
-          <input 
-            type="url" 
-            id="projectUrl" 
-            name = "projectUrl"
-            placeholder="https://example.com"
-            required/>
-        </div>
+            <label htmlFor="projectUrl" className="post-form__label">
+                Project URL
+              </label>
+            <input 
+              type="url" 
+              id="projectUrl" 
+              name = "projectUrl"
+              placeholder="https://example.com"
+              required/>
+          </div>
+          {/*Description*/}
           <div className="post-form__field">
             <label htmlFor="postDescription" className="post-form__label">
               Post Description
@@ -103,45 +106,66 @@ const ProjectUpload = ({onProjectCreate}) => {
               required
             />
           </div>
+          {/*End time*/}
           <div className="post-form__field">
-          <label htmlFor="endTime" className="post-form__label">
-              Project Finished Date
-            </label>
-          <input 
-            type="datetime-local" 
-            id="endTime" 
-            name = "endTime"/>
-        </div>
-        <div className="post-form__field">
-          <label htmlFor="visibilitySettings" className="post-form__label">
-              Visibility settings
-            </label>
-          <select 
-            id="visibilitySettings" 
-            name = "visibilitySettings"
-          >
-            <option value="public">Public</option>
-            <option value="private">Private</option>
-          </select>
-        </div>
-        <div className="post-form__field">
-          <label htmlFor="subject" className="post-form__label">
-              Subject
-            </label>
-          <input 
-            type = "text"
-            placeholder="Skill (ex: Project Management)"
-            id="subject" 
-            name = "subject"
-          />
-        </div>
-        
+            <label htmlFor="endTime" className="post-form__label">
+                Project Finished Date
+              </label>
+            <input 
+              type="datetime-local" 
+              id="endTime" 
+              name = "endTime"/>
+          </div>
+          {/*Visibility settings*/}
+          <div className="post-form__field">
+            <label htmlFor="visibilitySettings" className="post-form__label">
+                Visibility settings
+              </label>
+            <select 
+              id="visibilitySettings" 
+              name = "visibilitySettings"
+            >
+              <option value="public">Public</option>
+              <option value="private">Private</option>
+            </select>
+          </div>
+          {/*The rest of the fields are dynamic
+          That is, we can add and remove text fields.
+          Call the DynamicForm component!
+          */
+          }
+          <div className="post-form__field">
+            <label htmlFor="subject" className="post-form__label">
+                Subject
+              </label>
+              <DyanmicForm label="Subject" name="subject" item={subjects} setItems={setSubjects} type="text"/>
+          </div>
 
-
+          {/*Skills (has add more functionality)*/}
+          <div className="post-form__field">
+              <label htmlFor="skill" className="post-form__label">
+                Add Skill
+              </label>
+              <DyanmicForm label="Skill" name="skill" item={skills} setItems={setSkills} type="text"/>
+            </div>
+            {/*Tags (has add more functionality)*/}
+            <div className="post-form__field">
+              <label htmlFor="tag" className="post-form__label">
+                Add Tag
+              </label>
+              <DyanmicForm label="Tag" name="tag" item={tags} setItems={setTags} type="text"/>
+            </div>
+            {/*Files (has add more functionality)*/}
+            <div className="post-form__field">
+              <label htmlFor="file" className="post-form__label">
+                Add File URL
+              </label>
+              <DyanmicForm label="File" name="file" item={files} setItems={setFiles} type="url"/>
+            </div>
         </div>
 
         <button type="submit" className="post-form__submit">
-          🖋️&nbsp;&nbsp;Submit
+          Submit
         </button>
       </form>
     </section>
