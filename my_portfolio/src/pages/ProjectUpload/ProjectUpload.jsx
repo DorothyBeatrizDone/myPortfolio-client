@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import DynamicForm from '../../components/DynamicForm/DynamicForm';
+
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const SERVER_URL = `http://${host}:${PORT}`;
 
-//IMPORTANT
-//        subject: subject.value.split(',').map(item => item.trim()),
-
-
-const ProjectUpload = ({onProjectCreate}) => {
+const ProjectUpload = () => {
   const [skills, setSkills] = useState([]);
   const [tags, setTags] = useState([]);
   const [files, setFiles] = useState([]);
@@ -17,15 +14,21 @@ const ProjectUpload = ({onProjectCreate}) => {
   const [failedAuth, setFailedAuth] = useState(false);
   const [error, setError] = useState("");
 
+  //not sure why we need useEffect?
+  useEffect(() =>{
+    const token = sessionStorage.getItem("JWTtoken");
+    console.log("token is", token);
+      if (!token) {
+        setFailedAuth(true);
+      }
+      else{
+        setFailedAuth(false);
+      }
+  },[]);
+
   const handleFormSubmit = async(e) => {
     e.preventDefault();
-    const token = localStorage.getItem('JWTtoken');
-    if (!token) {
-      setFailedAuth(true);
-      return;
-    }
-
-    //Collect the user input 
+    const token = sessionStorage.getItem("JWTtoken");
     const uploadedForm = {
       title: e.target.projectTitle.value,
       project_url: e.target.projectUrl.value,
@@ -39,13 +42,12 @@ const ProjectUpload = ({onProjectCreate}) => {
     };
 
     try {
-      const response = await axios.post(`${SERVER_URL}/projects/`,
-          uploadedForm, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
+      await axios.post(`${SERVER_URL}/projects/`, uploadedForm, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         });
-        onProjectCreate();
+        //onProjectCreate();
         e.target.reset();
         {/* Reset the state after form submission since .reset() does not reset the states!*/}
         setSkills([]);
@@ -57,10 +59,9 @@ const ProjectUpload = ({onProjectCreate}) => {
     }
   }
 
-  return (
-    {failedAuth}?(
+  return failedAuth ?(
       <p>Please log in to create a project.</p>
-    ):
+    ): (
     <section className="create-project">
       <form className="project-form" onSubmit={handleFormSubmit}>
         <h3>Create New Project</h3>

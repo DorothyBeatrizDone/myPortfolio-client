@@ -24,7 +24,7 @@ const Login = () => {
 
       console.log(response.data);
       sessionStorage.setItem("JWTtoken", response.data.token);
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
       setError(
