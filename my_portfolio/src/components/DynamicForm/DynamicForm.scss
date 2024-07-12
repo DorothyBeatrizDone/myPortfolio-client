@@ -6,3 +6,15 @@
 .button-add{
     @include cta-primary;
 }
+
+.dynamic-form{
+    &__field-section{
+        @include flex;
+        gap:0.5rem;
+    }
+    &__button-remove{
+        @include cta-primary;
+        width:30%;
+        min-width:0;
+    }
+}

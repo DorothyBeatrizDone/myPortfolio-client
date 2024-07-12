@@ -45,12 +45,7 @@
     min-width: fit-content;
     height: 2.375rem;
   }
-  &:hover {
-    background-color: $graphite;
-    border: 1px solid $graphite;
-    color: $white;
-    cursor: pointer;
-  }
+
 }
 
 @mixin cta-secondary {

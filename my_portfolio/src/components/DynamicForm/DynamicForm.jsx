@@ -35,19 +35,21 @@ const DynamicForm = ({label, name, items, setItems, type}) => {
         creates an empty string to the end of the list of items
         since this string is empty, we need to get the value (e.target.value)
         and send that to handleChange.*/}
-        {items.map((item,index) => (
-          <div key={index}>
-            <input
-            type={type}
-            name={`${name}_${index}`}
-            id={`${name}_${index}`}
-            value={item}
-            onChange={(e) => handleChange(index, e.target.value)}
-            required
-          />
-            <button type = "button" className = "button-add" onClick={() => handleRemoveField(index)}>Remove</button>
-          </div>
-        ))}
+          {items.map((item,index) => (
+            <div key={index} className="dynamic-form__field-section">
+              <input
+              type={type}
+              className="project-form__input-field"
+              name={`${name}_${index}`}
+              id={`${name}_${index}`}
+              value={item}
+              placeholder={`Add ${name}`}
+              onChange={(e) => handleChange(index, e.target.value)}
+              required
+            />
+              <button type = "button" className = "dynamic-form__button-remove" onClick={() => handleRemoveField(index)}>Remove</button>
+            </div>
+          ))}
         <button type="button" className = "button-add" onClick={handleAddField}>
         Add {label}
       </button>

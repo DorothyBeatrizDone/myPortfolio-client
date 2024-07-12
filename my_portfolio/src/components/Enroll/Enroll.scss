@@ -2,3 +2,33 @@
 @use '../../styles/partials/typography.scss' as *;
 @use '../../styles/partials/variables.scss' as *;
 @use '../../styles/partials/globals.scss' as *;
+
+.form{
+    @include flex(column,center,center);
+    gap:1rem;
+    &__entries{
+        margin-bottom: $input-margin-bottom;
+    }
+    &__label{
+        display: block;
+        margin-bottom: $after-label-padding;
+        font-weight: bold;
+    }
+    &__input{
+        width: 100%;
+        padding: $input-padding;
+        border: 1px solid $graphite;
+        border-radius: $border-radius;
+    }
+    &__footer{
+        @include flex(row, space-between,center);
+        margin-bottom: $after-text-block-padding
+    }
+    &__footer-text{
+        text-decoration: none;
+        color:$slate;
+    }
+    &__button{
+        @include form-button
+    }
+}

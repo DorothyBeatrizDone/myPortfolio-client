@@ -30,7 +30,7 @@ const Profile = () => {
           },
         });
         setIsLoading(false);
-        setUserInfo({ name: response.data.name });
+        setUserInfo(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -47,8 +47,8 @@ const Profile = () => {
 
   if (failedAuth) {
     return (
-      <main className="dashboard">
-        <p>You must be logged in to see this page.</p>
+      <main className="profile">
+        <p>You must be logged in to view your profile</p>
         <p>
           <Link to="/login">Log in</Link>
         </p>
@@ -61,7 +61,7 @@ const Profile = () => {
   ) : (
     <div className="container">
       <section>
-        <h1>Welcome, {userInfo.name}!</h1>
+        <h1> About {userInfo.name}!</h1>
       </section>
       <button className="logout" onClick={handleLogout}>
         Logout

@@ -3,12 +3,11 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "./Enroll.scss";
 import { isValidEmail,isPasswordMatch } from "../../utils/checkValidInputs";
-
+import Header from "../Header/Header";
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
 const enrollURL = `${baseUrl}/users/enroll`;
-
 const Enroll = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -52,32 +51,40 @@ const Enroll = () => {
   };
 
   return (
-    <div>
-      <h1>Enroll</h1>
-      <form onSubmit={handleEnroll} className="form">
+    <div className="login">
+      <Header/>
+      <div className= "login__card">
+        <div className = "login__tabs">
+          <button className="login__button">Login</button>
+          <button type ="button" className = "login__button --active" onClick ={() =>{
+            navigate("/login")
+          }}>Sign Up</button>
+        </div>
+        <form onSubmit={handleEnroll} className="form">
         <div className="form__entries">
-          <label className="form__label">Email:</label>
-          <input className="form__input" type="text" name="email" />
+          <label htmlFor = "email" className="form__label">Email:</label>
+          <input className="form__input" type="text" name="email" id="email"/>
         </div>
 
         <div className="form__entries">
-          <label className="form__label">Name: </label>
-          <input className="form__input" type="text" name="name" />
+          <label htmlFor = "name" className="form__label">Name: </label>
+          <input className="form__input" id="name" type="text" name="name" />
         </div>
 
         <div className="form__entries">
-          <label className="form__label">Password: </label>
-          <input className="form__input" type="password" name="password" />
+          <label className="form__label" htmlFor = "password">Password: </label>
+          <input className="form__input" type="password" id="password" name="password" />
         </div>
-
         <div className="form__entries">
-          <label className="form__label">Confirm Password: </label>
-          <input className="form__input" type="password" name="confirmPassword" />
+          <label className="form__label" htmlFor = "confirmPassword">Confirm Password: </label>
+          <input className="form__input" type="password" name="confirmPassword" id="confirmPassword"/>
         </div>
         <button className="form__button" type="submit">
           Enroll
         </button>
       </form>
+      </div>
+
       {error && (
         <label
           style={{

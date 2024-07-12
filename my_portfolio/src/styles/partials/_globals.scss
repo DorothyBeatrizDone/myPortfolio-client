@@ -52,3 +52,40 @@ h6 {
   overflow-wrap: break-word;
 }
 
+.login{
+  @include flex(column,center,center);
+  background-color: $white;
+  padding:1rem;
+
+  @include tablet{
+      padding:$tablet-side-margin;
+  }
+  @include desktop{
+      padding:$desktop-side-margin
+  }
+  &__card{
+      background: $white;
+      padding: $form-margin;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      max-width: 100%;
+      position:relative;
+      overflow:hidden;
+      @include flex(column, center, center);
+  }
+
+  &__tabs{
+      @include flex(row, center,center);
+      margin-bottom: $after-text-block-padding;
+      gap:1rem;
+  }
+
+  &__button{
+      @include cta-primary;
+  
+      &--active{
+          @include cta-primary;
+          background-color: darken($red, 15%);
+      }
+  }
+}
