@@ -1,0 +1,55 @@
+@use '../../styles/partials/mixins.scss' as *;
+@use '../../styles/partials/typography.scss' as *;
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/globals.scss' as *;
+.create-project{
+    padding:$mobile-side-margin;
+
+    &__header{
+        @include flex(row, space-between,center);
+        width:100%;
+        margin-bottom:$mobile-side-margin;
+        border-bottom: 2px solid $cloud;
+        padding-bottom: $after-heading-padding;
+    }
+    &__title-section{
+        @include flex;
+        gap:1rem;
+    }
+    &__title{
+        @include page-header;
+        margin: 0; 
+    }
+    &__header-arrow{
+        width:15%;
+    }
+}
+.project-form{
+    &__fields{
+        @include flex(column,flex-start,center);
+    }
+    &__field{
+        @include flex(column,center,flex-start);
+        gap:0.5rem;
+        padding: $mobile-side-margin;
+        background: $white;
+        margin-bottom: $form-margin;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        width:100%;
+    }
+    &__label{
+        @include body-medium;
+        font-weight: 600;
+
+    }
+    &__input-field{
+        width: 100%;
+        padding: $input-padding;
+        border: 1px solid $graphite;
+        border-radius: $border-radius;
+    }
+    &__submit{
+        @include form-button;
+    }
+}

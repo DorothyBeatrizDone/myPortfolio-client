@@ -3,42 +3,59 @@
 @use '../../styles/partials/variables.scss' as *;
 @use '../../styles/partials/globals.scss' as *;
 .project {
+    padding: $mobile-side-margin;
     background: $white;
-    padding: $form-margin;
     margin-bottom: $form-margin;
     border-radius: $border-radius;
     box-shadow: $box-shadow;
-    @include flex(column,center,center);
     
-    &__image {
-      width: 100%;
-      max-width: 100%;
+    &__main-image {
+      width: 70%;
       height: auto;
       border-radius: $border-radius;
       margin-bottom: $after-heading-padding;
+
+      display: block; // Ensures it behaves as a block element
+      margin-left: auto; // Centers the image horizontally
+      margin-right: auto; // Centers the image horizontally
+
+    }
+
+    &__header-card{
+        @include flex(row, space-between,center);
+        width:100%;
     }
       
     &__details {
-        text-align: center;
+        @include flex(column,center,flex-start);
     }
 
     &__title {
-        font-size: $font-size-large;
         margin-bottom: $after-subheading-padding;
+        @include sub-header;
       }
 
     &__description {
         font-size: $font-size-medium;
-        margin-bottom: $after-text-block-padding;
     }
     &__info{
         text-align: left;
         font-size: $font-size-small;
         &--item{
             margin-bottom: $after-label-padding;
+            @include flex(row,flex-start,center);
         }
+    }
+    &__label{
+        font-weight: bold;
     }
     &__tag{
         @include tag;
+    }
+    &__details-button{
+        @include cta-primary;
+        min-width:40%;
+        padding-left:$mobile-side-margin;
+        padding-right:$mobile-side-margin;
     }
 }

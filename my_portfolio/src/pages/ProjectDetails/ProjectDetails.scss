@@ -4,12 +4,23 @@
 @use '../../styles/partials/globals.scss' as *;
 
 .project{
-    padding: $tablet-side-margin;
     &__header{
-        @include page-header;
+        @include flex(row, space-between,center);
+        width:100%;
+        margin-bottom:$mobile-side-margin;
+        border-bottom: 2px solid $cloud;
+        padding-bottom: $after-heading-padding;
+    }
+    &__title-section{
+        @include flex;
+        gap:1rem;
     }
     &__title{
-        //todo
+        @include page-header;
+        margin: 0; 
+    }
+    &__header-arrow{
+        width:15%;
     }
     .edit-button{
         @include cta-secondary;
@@ -20,7 +31,10 @@
 }
 .project-info{
     &__image{
+        @include flex(column,center,center);
+        gap:2rem;
         margin-bottom: $after-text-block-padding;
+
         .img{
             width: 100%;
             max-width: 100%;

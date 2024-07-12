@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 import "./ProjectDetails.scss";
+import backArrow from "../../assets/images/arrow_back.png"
+
+import graphs from "../../assets/images/graphs.png"
+import second_graphs from "../../assets/images/second_graphs.png"
 
 import axios from 'axios';
 const baseUrl = `http://${host}:${PORT}`;
 
 const ProjectDetails = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -55,12 +62,21 @@ const ProjectDetails = () => {
   return loading? (<h1>Loading</h1>):(
     <section className='project'>
         <div className='project__header'>
-          <h1 className="project__title">{project.title}</h1>
+            <div className = "project__title-section">
+              <img
+                className="project__header-arrow"
+                src={backArrow}
+                alt="back arrow"
+                onClick={() => navigate('/dashboard')}
+              />
+              <h1 className="project__title">{project.title}</h1>
+            </div>
           <button className ="edit-button" type ="submit">Edit</button>
         </div>
         <div className="project-info">
           <div className='project-info__image'>
-            <img src={project} alt="project image"/>
+            <img src={graphs} alt="first project image"/>
+            <img src={second_graphs} alt="first project image"/>
           </div>
           <div className = 'project-info__section' >
             <h2 className="project-info__label">Description</h2>

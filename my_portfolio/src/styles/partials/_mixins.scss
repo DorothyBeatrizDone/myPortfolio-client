@@ -56,11 +56,11 @@
 @mixin cta-secondary {
   border-radius: $border-radius;
   min-width: 100%;
-  background-color: $white;
-  border: 1px solid $cloud;
+  background-color: $red;
+  border: 1px solid $red;
   height: 2.25rem;
   @include link-label-button;
-  color: $slate;
+  color: $white;
 
   &:hover {
     background-color: $white;
@@ -90,8 +90,8 @@
   }
 
   &:hover {
-    background-color: $graphite;
-    border: 1px solid $graphite;
+    background-color: darken($red, 10%);
+    border: 1px solid darken($red, 10%);
     color: $white;
     cursor: pointer;
   }
@@ -149,9 +149,12 @@
 @mixin tag {
   padding: 0 0.5rem;
   border-radius: $border-radius;
-  background-color: $green-low-opacity;
-  color: $green;
+  background-color: $light-grey;
+  color: $slate;
   height: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align:center;
+  
 
   @include tablet {
     height: 1.625rem;
@@ -163,7 +166,7 @@
 // Typography
 // ------------------------------//
 @mixin page-header {
-  color: $myportfolio-black;
+  color: black;
   font-family: "Titillium Web";
   font-size: 1.75rem;
   font-weight: 600;

@@ -1,4 +1,5 @@
 import React from 'react'
+import "./DynamicForm.scss"
 
 const DynamicForm = ({label, name, items, setItems, type}) => {
   //add a new empty input field.
@@ -44,10 +45,10 @@ const DynamicForm = ({label, name, items, setItems, type}) => {
             onChange={(e) => handleChange(index, e.target.value)}
             required
           />
-            <button type = "button" onClick={() => handleRemoveField(index)}>Remove</button>
+            <button type = "button" className = "button-add" onClick={() => handleRemoveField(index)}>Remove</button>
           </div>
         ))}
-        <button type="button" onClick={handleAddField}>
+        <button type="button" className = "button-add" onClick={handleAddField}>
         Add {label}
       </button>
       </>

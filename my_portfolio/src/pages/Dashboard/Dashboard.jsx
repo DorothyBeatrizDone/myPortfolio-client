@@ -64,7 +64,7 @@ const Dashboard = () => {
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
-      <button type = "button" onClick={() =>{
+      <button type = "button" className = "dashboard__button-add" onClick={() =>{
         navigate("/upload-project");
       }}> Add new project</button>
       {/*<ProjectUpload onProjectCreate={fetchProjects} />*/}

@@ -4,7 +4,7 @@
 @use '../../styles/partials/globals.scss' as *;
 .dashboard{
     padding: $mobile-side-margin;
-    background-color: $cloud;
+    background-color: $white;
     
     @include tablet {
       padding: $tablet-side-margin;
@@ -13,15 +13,13 @@
     @include desktop {
       padding: $desktop-side-margin;
     }  
-    &__header{
-        text-align: center;
-        background-color: $red;
-        padding: $after-heading-padding;
-        color: $white;
-        font-size: $font-size-large;
-        border-radius: $border-radius;
-    }
+
     &__title{
-        margin:0;
+      @include page-header;
+      margin-bottom:$mobile-side-margin
+    }
+    &__button-add{
+      @include cta-primary;
+
     }
 }

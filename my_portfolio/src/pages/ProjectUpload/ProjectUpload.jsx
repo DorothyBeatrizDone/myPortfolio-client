@@ -4,7 +4,10 @@ import DynamicForm from '../../components/DynamicForm/DynamicForm';
 import { useNavigate } from 'react-router-dom';
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
+import backArrow from "../../assets/images/arrow_back.png";
+import "./ProjectUpload.scss";
 const SERVER_URL = `http://${host}:${PORT}`;
+
 
 const ProjectUpload = () => {
   const navigate = useNavigate();
@@ -69,9 +72,32 @@ const ProjectUpload = () => {
   return failedAuth ?(
       <p>Please log in to create a project.</p>
     ): (
+
+
+    /*
+            <div className='project__header'>
+            <div className = "project__title-section">
+              <img
+                className="project__header-arrow"
+                src={backArrow}
+                alt="back arrow"
+                onClick={() => navigate('/dashboard')}
+              />
+              <h1 className="project__title">{project.title}</h1>
+            </div>*/
     <section className="create-project">
+        <div className='create-project__header'>
+            <div className = "create-project__title-section">
+              <img
+                className="create-project__header-arrow"
+                src={backArrow}
+                alt="back arrow"
+                onClick={() => navigate('/dashboard')}
+              />
+              <h1 className="create-project__title">Upload your project</h1>
+            </div>
+          </div>
       <form className="project-form" onSubmit={handleFormSubmit}>
-        <h3>Create New Project</h3>
         <div className="project-form__fields">
           {/*Title */}
           <div className="project-form__field">
@@ -79,6 +105,8 @@ const ProjectUpload = () => {
               Project Title
             </label>
             <input
+              className="project-form__input-field"
+              placeholder='Project Title'
               type="text"
               name="projectTitle"
               id="projectTitle"
@@ -92,6 +120,7 @@ const ProjectUpload = () => {
                 Project URL
               </label>
             <input 
+              className="project-form__input-field"
               type="url" 
               id="projectUrl" 
               name = "projectUrl"
@@ -104,6 +133,8 @@ const ProjectUpload = () => {
               Project Description
             </label>
             <textarea
+              placeholder="Description"
+              className = "project-form__input-field"
               type="text"
               name="projectDescription"
               id="projectDescription"
@@ -116,6 +147,8 @@ const ProjectUpload = () => {
                 Project Finished Date
               </label>
             <input 
+              placeholder='Project Finished Date'
+              className="project-form__input-field"
               type="datetime-local" 
               id="endTime" 
               name = "endTime"/>
