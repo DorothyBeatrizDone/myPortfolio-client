@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.scss";
+import Header from "../Header/Header";
 
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
@@ -34,17 +35,15 @@ const Login = () => {
   };
 
   return (
+
     <div className="login">
+      <Header/>
       <div className="login__card">
-        <div className= "login__header-container">
-          <h1 className="login__header">MyPortfolio</h1>
-        </div>
         <div className = "login__tabs">
           <button className="login__button--active">Login</button>
           <button className="login__button">Sign Up</button>
         </div>
-      </div>
-      <form onSubmit={handleLogin} className="form">
+        <form onSubmit={handleLogin} className="form">
         <div className="form__entries">
           <label htmlFor = "email" className="form__label">Email:</label>
           <input type="text" id="email" name="email" className="form__input"/>
@@ -54,13 +53,14 @@ const Login = () => {
           <input type="password"  id="password" name="password"  className="form__input"/>
         </div>
         <div className="form__footer">
-            <a href="/enroll">Forgot Password?</a>
-            <a href="/enroll">Create an Account</a>
+            <a href="/enroll" className="form__footer-text">Create an Account</a>
           </div>
         <button className="form__button" type="submit">
           Login
         </button>
       </form>
+      </div>
+
     </div>
   );
 };

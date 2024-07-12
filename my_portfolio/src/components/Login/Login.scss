@@ -3,10 +3,9 @@
 @use '../../styles/partials/variables.scss' as *;
 @use '../../styles/partials/globals.scss' as *;
 .login{
-    @include flex(row,center,center);
-    background-color: $myportfolio-indigo;
-    height: $height;
-    padding: $mobile-side-margin;
+    @include flex(column,center,center);
+    background-color: $white;
+    padding:1rem;
 
     @include tablet{
         padding:$tablet-side-margin;
@@ -19,34 +18,30 @@
         padding: $form-margin;
         border-radius: $border-radius;
         box-shadow: $box-shadow;
-        width: 5rem;
         max-width: 100%;
+        position:relative;
+        overflow:hidden;
+        @include flex(column, center, center);
     }
-    &__header-container{
-        text-align: center;
-        margin-bottom: $after-heading-padding;
-    }
-    &__header{
-        @include page-header;
-        margin-bottom: $after-subheading-padding;
-        font-weight: bold;
-    }
+
     &__tabs{
         @include flex(row, center,center);
         margin-bottom: $after-text-block-padding;
+        gap:1rem;
     }
 
     &__button{
         @include cta-primary;
     
         &--active{
-            color: $white;
-            background-color: $graphite;
-            border-radius: $border-radius;
+            @include cta-primary;
+            background-color: darken($red, 15%);
         }
     }
 }
-form{
+.form{
+    @include flex(column,center,center);
+    gap:1rem;
     &__entries{
         margin-bottom: $input-margin-bottom;
     }
@@ -64,6 +59,10 @@ form{
     &__footer{
         @include flex(row, space-between,center);
         margin-bottom: $after-text-block-padding
+    }
+    &__footer-text{
+        text-decoration: none;
+        color:$slate;
     }
     &__button{
         @include form-button

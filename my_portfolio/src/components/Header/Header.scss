@@ -1,0 +1,25 @@
+@use '../../styles/partials/mixins.scss' as *;
+@use '../../styles/partials/typography.scss' as *;
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/globals.scss' as *;
+.header{
+    @include flex(row,space-evenly,center);
+    margin-bottom:$after-heading-padding;
+    &__icon{
+        width:30%;
+    }
+    &__text{
+        font-size:$font-size-large;
+        @include page-header;
+    }
+
+    &__container{
+        text-align: center;
+        margin-bottom: $after-heading-padding;
+    }
+    &__header{
+        @include page-header;
+        margin-bottom: $after-subheading-padding;
+        font-weight: bold;
+    }
+}

@@ -33,11 +33,12 @@
 @mixin cta-primary {
   border-radius: $border-radius;
   min-width: 100%;
-  background-color: $myportfolio-indigo;
-  border: 1px solid $myportfolio-indigo;
+  background-color: $red;
+  border: 1px solid $red;
   height: 2.25rem;
   @include link-label-button;
   color: $white;
+  transition: background-color 0.3s;
 
   @include tablet {
     padding: 0 1rem;
@@ -63,8 +64,8 @@
 
   &:hover {
     background-color: $white;
-    border: 1px solid $myportfolio-indigo;
-    color: $myportfolio-indigo;
+    border: 1px solid $red;
+    color: $red;
     cursor: pointer;
   }
   @include tablet {
@@ -112,7 +113,7 @@
 
 @mixin text-field-active {
   border-radius: $border-radius;
-  border: 2px solid $myportfolio-indigo;
+  border: 2px solid $red;
   height: 2rem;
   padding: 0 1rem;
   @include tablet {
@@ -134,7 +135,7 @@
 // Text Links
 // ------------------------------//
 @mixin text-link {
-  color: $myportfolio-indigo;
+  color: $red;
 
   &:hover {
     text-decoration: underline;
@@ -204,7 +205,7 @@
   padding: $mobile-side-margin;
   border: none;
   border-radius: $border-radius;
-  background-color: $myportfolio-indigo;
+  background-color: $red;
   color: $white;
   font-size: 1.25rem;
 }
