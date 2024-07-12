@@ -4,7 +4,7 @@ const DynamicForm = ({label, name, items, setItems, type}) => {
   //add a new empty input field.
   //copy the current item array and add an empty string to the copied array
   const handleAddField = () =>{
-        setItems(...items, '');
+        setItems([...items, '']);
   }
 
   //removes an input field at a specified index
@@ -20,9 +20,9 @@ const DynamicForm = ({label, name, items, setItems, type}) => {
   const handleChange = (index, value) =>{
     const updatedItems = items.map((item, i) =>
       (i === index)? value : item
-    )
+    );
     setItems(updatedItems);
-  }
+  };
   //updates the value of an input field at a specified index.
 
     return (
@@ -35,16 +35,16 @@ const DynamicForm = ({label, name, items, setItems, type}) => {
         since this string is empty, we need to get the value (e.target.value)
         and send that to handleChange.*/}
         {items.map((item,index) => (
-          <div>
+          <div key={index}>
             <input
             type={type}
-            name={`${name}_${i}`}
-            id={`${name}_${i}`}
+            name={`${name}_${index}`}
+            id={`${name}_${index}`}
             value={item}
             onChange={(e) => handleChange(index, e.target.value)}
             required
           />
-            <button onClick={() => handleRemoveField(index)}>Remove</button>
+            <button type = "button" onClick={() => handleRemoveField(index)}>Remove</button>
           </div>
         ))}
         <button type="button" onClick={handleAddField}>

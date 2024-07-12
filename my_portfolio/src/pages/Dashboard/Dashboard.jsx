@@ -3,6 +3,7 @@ import axios from 'axios';
 import ProjectUpload from '../ProjectUpload/ProjectUpload';
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import './Dashboard.scss';
+import { useNavigate } from 'react-router-dom';
 
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
@@ -10,6 +11,7 @@ const baseUrl = `http://${host}:${PORT}`;
 
 //Gets a list (in the form of cards) of the user's projects.
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [failedAuth, setFailedAuth] = useState(false);
@@ -62,6 +64,9 @@ const Dashboard = () => {
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
+      <button type = "button" onClick={() =>{
+        navigate("/upload-project");
+      }}> Add new project</button>
       {/*<ProjectUpload onProjectCreate={fetchProjects} />*/}
     </section>
   );

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import DynamicForm from '../../components/DynamicForm/DynamicForm';
-
+import { useNavigate } from 'react-router-dom';
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const SERVER_URL = `http://${host}:${PORT}`;
 
 const ProjectUpload = () => {
+  const navigate = useNavigate();
   const [skills, setSkills] = useState([]);
   const [tags, setTags] = useState([]);
   const [files, setFiles] = useState([]);
@@ -35,12 +36,13 @@ const ProjectUpload = () => {
       end_time: e.target.endTime.value,
       visibility: e.target.visibilitySettings.value, 
       skills,
-      subject: e.target.subject.value,
+      subject: e.target.subjects.value,
       tags,
       files,
       description: e.target.projectDescription.value,
     };
 
+    console.log('uploadedForm:', uploadedForm);
     try {
       await axios.post(`${SERVER_URL}/projects/`, uploadedForm, {
           headers: {
@@ -54,10 +56,15 @@ const ProjectUpload = () => {
         setTags([]);
         setFiles([]);
         setSubjects([]);
+        navigate("/dashboard");
     } catch (error) {
         setError('Error creating a new project.');
     }
   }
+  console.log("subjects", subjects);
+  console.log("skills", skills);
+  console.log("tags",tags);
+  console.log("files", files);
 
   return failedAuth ?(
       <p>Please log in to create a project.</p>
@@ -135,7 +142,7 @@ const ProjectUpload = () => {
             <label htmlFor="subject" className="project-form__label">
                 Subject
               </label>
-              <DynamicForm label="Subject" name="subject" items={subjects} setItems={setSubjects} type="text"/>
+              <DynamicForm label="Subjects" name="subjects" items={subjects} setItems={setSubjects} type="text"/>
           </div>
 
           {/*Skills (has add more functionality)*/}
