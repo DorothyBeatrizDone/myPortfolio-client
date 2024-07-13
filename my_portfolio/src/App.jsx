@@ -5,7 +5,7 @@ import Login from "./components/Login/Login";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ProjectUpload from "./pages/ProjectUpload/ProjectUpload";
 import ProjectDetails from "./pages/ProjectDetails/ProjectDetails";
-import Profile from "./pages/Profile/Profile";
+import ProfileDetails from "./pages/ProfileDetails/ProfileDetails";
 //import EditProfile from "./pages/Profile/EditProfile";
 
 import "./App.scss";
@@ -18,7 +18,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/enroll" element={<Enroll />} />
 
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<ProfileDetails />} />
           {/*
             <Route path="/profile/edit" element={<EditProfile />} />
           <Route path="/profile/delete" element={<EditProfile />} />
