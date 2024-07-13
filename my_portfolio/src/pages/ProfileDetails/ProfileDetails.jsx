@@ -15,8 +15,13 @@ const ProfileDetails = () => {
  // const [skillSet, setSkillSet] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [currentEditField, setCurrentEditField] = useState("");
+
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [currentAddField, setCurrentAddField] = useState("");
+
   const [currentValue, setCurrentValue] = useState("");
- // const [languages, setLanguages] = useState([]);
+ 
+  // const [languages, setLanguages] = useState([]);
 
   //retrieve the JWT token from the session storage
   const token = sessionStorage.getItem("JWTtoken");
@@ -55,6 +60,11 @@ const ProfileDetails = () => {
     setEditModalOpen(true);
   };
 
+  const openAddModal = (field) => {
+    setCurrentAddField(field);
+    setAddModalOpen(true);
+  };
+
   const closeEditModal = () => {
     setEditModalOpen(false);
   };
@@ -73,68 +83,66 @@ const ProfileDetails = () => {
     <section>
         <h1>{userInfo.display_name || userInfo.name}</h1>
       <button type = "button" onClick={() =>{
-        <ProfileEdit aKey = {display_name} aVal = {userInfo.display_name} />
-      }}> Edit </button>
-
+        openEditModal("display_name", (userInfo.display_name || userInfo.name))
+      }}> Edit 
+      </button>
   </section>
       
     {/*About */}
     <section>
       <h2>About</h2>
       {userInfo.about && (
-      <p>{userInfo.about}</p>
+      <p>{userInfo.about || "No about section provided"}</p>
       )}
       <button type = "button" onClick={() =>{
-        <ProfileEdit aKey = {about} aVal ={userInfo.about}/>
+        openEditModal("about", userInfo.about || "")
       }}> Edit </button>
       <button type = "button" onClick={() =>{
-        <ProfileAdd aKey = {about}/>
+        openAddModal("about")
       }}> Add </button>
     </section>
 
     {/* Skills*/}
     <section>
       <h2>Skills</h2>
-      {userInfo.skills && (
-        <div className="project-info__tags">
-          {userInfo.skills.map((skill) => (
-            <div className="project-info__tag" key={project.id}>
-                {skill}
-                <button type = "button" onClick={() =>{
-                  <ProfileEdit aKey = {skills} aVal={skill} stateVals={skillSet}/>
-                }}> Edit </button>
-                <button type = "button" onClick={() =>{
-                  <ProfileAdd aKey = {skills}/>
-                }}> Add </button>
-            </div>
-            ))}
-        </div>
-      )}
+      <div className="project-info__tags">
+        {userInfo.skills && userInfo.skills.map((skill,index) => (
+          <div className="project-info__tag" key={index}>
+            {skill}
+          </div>
+        ))}
+      </div>
+      <button onClick={() => openEditModal("skills", userInfo.skills || [])}>Edit</button>
+      <button onClick={() =>openEditModal("skills")}>Add </button>
     </section>
     
     {/* Languages*/}
     <section>
       <h2>Languages</h2>
-      {userInfo.languages_spoken && (
-        <div className="project-info__tags">
-          {userInfo.languages_spoken.map((language) => (
-            <div className="project-info__tag" key={project.id}>
-                {language}
-                <button type = "button" onClick={() =>{
-                  <ProfileEdit aKey = {languages_spoken} aVal={language} stateVals = {languages}/>
-                }}> Edit </button>
-                <button type = "button" onClick={() =>{
-                  <ProfileAdd aKey = {languages_spoken} />
-                }}> Add </button>
-            </div>
-            ))}
-        </div>
-      )}
+      <div className="project-info__tags">
+        {userInfo.languages_spoken && userInfo.languages_spoken.map((language, index) => (
+          <div className="project-info__tag" key={index}>
+            {language}
+          </div>
+        ))}
+      </div>
+
+      <button onClick={() => openEditModal("languages_spoken", userInfo.languages_spoken || [])}>Edit</button>
+      <button onClick={() => openEditModal("languages_spoken")}>Add</button>
     </section>
       
       <button className="logout" onClick={handleLogout}>
         Logout
       </button>
+      {editModalOpen && (
+        <ProfileEdit 
+          field = {currentEditField}
+          value = {currentValue}
+          closeModal = {closeEditModal}
+          setUserInfo = {setUserInfo}
+          userInfo = {userInfo}
+          />
+      )}
     </div>
   );
 };
