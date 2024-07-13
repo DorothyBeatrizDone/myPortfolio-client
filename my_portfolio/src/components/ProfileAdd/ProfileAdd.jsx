@@ -38,7 +38,6 @@ const ProfileAdd = ({aKey, stateVals}) => {
       }
       else if(aKey === skills){
         addedSection.skills = skillSet;
-
       }
       else{
         addedSection.languages_spoken = languages;

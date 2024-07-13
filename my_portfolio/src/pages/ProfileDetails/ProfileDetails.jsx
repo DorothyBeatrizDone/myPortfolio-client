@@ -5,7 +5,6 @@ const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
 const profileUrl = `${baseUrl}/users/profile`;
-import { getToken, checkAuth } from "../../utils/auth";
 import ProfileEdit from "../../components/ProfileEdit/ProfileEdit";
 import "./ProfileDetails.scss";
 
@@ -13,8 +12,11 @@ const ProfileDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({});
   const [failedAuth, setFailedAuth] = useState(false);
-  const [skills, setSkills] = useState([]);
-  const [languages, setLanguages] = useState([]);
+ // const [skillSet, setSkillSet] = useState([]);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [currentEditField, setCurrentEditField] = useState("");
+  const [currentValue, setCurrentValue] = useState("");
+ // const [languages, setLanguages] = useState([]);
 
   //retrieve the JWT token from the session storage
   const token = sessionStorage.getItem("JWTtoken");
@@ -22,7 +24,6 @@ const ProfileDetails = () => {
   useEffect(() => {
     if (!token) {
       setFailedAuth(true);
-      console.log("token has", failedAuth);
       return;
     }
 
@@ -35,9 +36,6 @@ const ProfileDetails = () => {
         });
         setIsLoading(false);
         setUserInfo(response.data);
-        console.log("response.data", response.data);
-        console.log("UserInfo", userInfo);
-        console.log("UserInfo name", userInfo.name);
       } catch (error) {
         console.error(error);
       }
@@ -51,29 +49,29 @@ const ProfileDetails = () => {
     setFailedAuth(true);
   };
 
-  if (failedAuth)  {
-    return (
-      <main className="dashboard">
-        <p>You must be logged in to see this page.</p>
-        <p>
-          <Link to="/login">Log in</Link>
-        </p>
-      </main>
-    );
-  }
+  const openEditModal = (field, value) => {
+    setCurrentEditField(field);
+    setCurrentValue(value);
+    setEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+  };
 
   return failedAuth ? (
-    <p>Please log in to view profile information.</p>
-  ) : (
+    <main>
+      <p>You must be logged in to see this page.</p>
+      <p>
+        <Link to="/login">Log in</Link>
+      </p>
+  </main>
+  ) : isLoading ? (<h1> Loading...</h1>) : (
     <div className="container">
     
     {/*Name */}
     <section>
-      {userInfo.display_name ? (
-        <h1>{userInfo.display_name}</h1>
-      ) : (
-        <h1>{userInfo.name}</h1>
-      )}
+        <h1>{userInfo.display_name || userInfo.name}</h1>
       <button type = "button" onClick={() =>{
         <ProfileEdit aKey = {display_name} aVal = {userInfo.display_name} />
       }}> Edit </button>
@@ -90,7 +88,7 @@ const ProfileDetails = () => {
         <ProfileEdit aKey = {about} aVal ={userInfo.about}/>
       }}> Edit </button>
       <button type = "button" onClick={() =>{
-        <ProfileAdd aKey = {about} aVal ={userInfo.about}/>
+        <ProfileAdd aKey = {about}/>
       }}> Add </button>
     </section>
 
@@ -103,16 +101,15 @@ const ProfileDetails = () => {
             <div className="project-info__tag" key={project.id}>
                 {skill}
                 <button type = "button" onClick={() =>{
-                  <ProfileEdit aKey = {skills} aVal={skill}/>
+                  <ProfileEdit aKey = {skills} aVal={skill} stateVals={skillSet}/>
                 }}> Edit </button>
                 <button type = "button" onClick={() =>{
-                  <ProfileAdd aKey = {skills} aVal={skill}/>
+                  <ProfileAdd aKey = {skills}/>
                 }}> Add </button>
             </div>
             ))}
         </div>
       )}
-
     </section>
     
     {/* Languages*/}
@@ -124,10 +121,10 @@ const ProfileDetails = () => {
             <div className="project-info__tag" key={project.id}>
                 {language}
                 <button type = "button" onClick={() =>{
-                  <ProfileEdit aKey = {languages_spoken} aState={language} stateVals = {languages}/>
+                  <ProfileEdit aKey = {languages_spoken} aVal={language} stateVals = {languages}/>
                 }}> Edit </button>
                 <button type = "button" onClick={() =>{
-                  <ProfileAdd aKey = {languages_spoken} aState={language} stateVals = {languages}/>
+                  <ProfileAdd aKey = {languages_spoken} />
                 }}> Add </button>
             </div>
             ))}

@@ -8,7 +8,7 @@ const baseUrl = `http://${host}:${PORT}`;
 import backArrow from "../../assets/images/arrow_back.png";
 import "./ProfileEdit.scss"
 
-// Profit Edit will either add or delete the section
+// Profit Edit will either modify (save button) or delete the section
 const profileUrl = `${baseUrl}/users/profile`;
 
 const ProfileEdit = ({aKey, aVal, stateVals}) => {
