@@ -14,7 +14,7 @@ const ProjectUpload = () => {
   const [skills, setSkills] = useState([]);
   const [tags, setTags] = useState([]);
   const [files, setFiles] = useState([]);
-  const [subjects, setSubjects] = useState([]);
+  const [subject, setSubjects] = useState([]);
   const [failedAuth, setFailedAuth] = useState(false);
   const [error, setError] = useState("");
 
@@ -33,13 +33,16 @@ const ProjectUpload = () => {
   const handleFormSubmit = async(e) => {
     e.preventDefault();
     const token = sessionStorage.getItem("JWTtoken");
+    console.log("elements", e.target.elements);
+
+    const subjectsArray = subject;
     const uploadedForm = {
       title: e.target.projectTitle.value,
       project_url: e.target.projectUrl.value,
       end_time: e.target.endTime.value,
       visibility: e.target.visibilitySettings.value, 
       skills,
-      subject: e.target.subjects.value,
+      subject: subjectsArray,
       tags,
       files,
       description: e.target.projectDescription.value,
@@ -64,7 +67,7 @@ const ProjectUpload = () => {
         setError('Error creating a new project.');
     }
   }
-  console.log("subjects", subjects);
+  console.log("subjects", subject);
   console.log("skills", skills);
   console.log("tags",tags);
   console.log("files", files);
@@ -173,9 +176,9 @@ const ProjectUpload = () => {
           }
           <div className="project-form__field">
             <label htmlFor="subject" className="project-form__label">
-                Subject
+                Multiple subjects
               </label>
-              <DynamicForm label="Subjects" name="subjects" items={subjects} setItems={setSubjects} type="text"/>
+              <DynamicForm label="Subjects" name="multipleSubjects" items={subject} setItems={setSubjects} type="text"/>
           </div>
 
           {/*Skills (has add more functionality)*/}
