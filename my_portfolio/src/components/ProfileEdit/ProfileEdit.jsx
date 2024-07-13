@@ -8,122 +8,57 @@ const baseUrl = `http://${host}:${PORT}`;
 import backArrow from "../../assets/images/arrow_back.png";
 import "./ProfileEdit.scss"
 
-// Profit Edit will either modify (save button) or delete the section
+// Profit Edit will either modify (save) or delete the section
 const profileUrl = `${baseUrl}/users/profile`;
 
-const ProfileEdit = ({aKey, aVal, stateVals}) => {
-  const navigate = useNavigate();
-  const [error, setError] = useSate("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [failedAuth, setFailedAuth] = useState(false);
+const ProfileEdit = ({field, value, closeModal, setUserInfo, userInfo}) => {
+    const [error, setError] = useState(value);
+    const [editValue, setEditValue] = useState("");
 
-  //retrieve the JWT token from the session storage
-  const token = sessionStorage.getItem("JWTtoken");
-
-  useEffect(() => {
-    if (!token) {
-      setFailedAuth(true);
-      return;
-    }
+    //retrieve the JWT token from the session storage
+    const token = sessionStorage.getItem("JWTtoken");
 
     //FORM FOR USER TO INPUT PERSONAL INFORMATION
-    const handleEditForm = async(e)=>{
-      e.preventDefault();
-      const token = sessionStorage.getItem("JWTtoken");
-
-      let uploadedProfileForm = {};
-      if (aKey === display_name){
-        uploadedProfileForm.display_name = aVal;
-      }
-      else if (aKey === about){
-        uploadedProfileForm.about = aVal;
-      }
-      else if(aKey === skills){
-        uploadedProfileForm.skills = [...stateVals, aVal];
-      }
-      else{
-        uploadedProfileForm.languages_spoken = [...stateVals, aVal];
-      }
+    const handleSave = async()=>{
+        //might need to refresh my memory on response.data syntax!
+      let updatedProfile = { ...userInfo, [field]:editValue}
       try {
-        await axios.patch(profileUrl, uploadedProfileForm, {
+        const response = await axios.put(profileUrl, updatedProfile, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        navigate("./profile")
-        //should we navigate somewhere??
+        setUserInfo(response.data)
+        closeModal();
       } catch (error) {
         setError('Error editing.');
       }
-    }
-    handleEditForm();
-  },[token]);
+    };
 
-  if (failedAuth) {
+    const handleChange = (e) => {
+        setEditValue(e.target.value);
+    };
+
     return (
-      <main className="profile">
-        <p>You must be logged in to view your profile</p>
-        <p>
-          <Link to="/login">Log in</Link>
-        </p>
-      </main>
-    );
-  }
-
-  return isLoading ? (
-    <h1>Loading...</h1>
-  ) : (
-    <section className="create-project">
-        <div className='create-project__header'>
-            <div className = "create-project__title-section">
-              <img
-                className="create-project__header-arrow"
-                src={backArrow}
-                alt="back arrow"
-                onClick={() => navigate('/dashboard')}
-              />
-              <h1 className="create-project__title">My Profile</h1>
-            </div>
-          </div>
-      <form className="project-form" onSubmit={handleProfileForm}>
-        <div className="project-form__fields">
-          {/*About */}
-          <div className="project-form__field">
-            <label htmlFor="about" className="project-form__label">
-              About
-            </label>
-            <input
-              className="project-form__input-field"
-              placeholder='About section'
-              type="text"
-              name="about"
-              id="about"
-              maxLength="300"
+    <section className="edit">
+        <h1>Edit {field}</h1>
+        {/* If the field is skills or languages then call Dynamic Form}*/}
+        {field === "skills" || field === "languages"} ?(
+            <DynamicForm
+                label = {field === "skills" ? "Skills" : "Languages" }
+                name = {field}
+                items = {editValue}
+                setItems = {setEditValue}
+                type = "text"
             />
-          </div>
-          {/*Skills */}
-          <div className="project-form__field">
-              <label htmlFor="skill" className="project-form__label">
-                Skills
-              </label>
-              <DynamicForm label="Skills" name="skills" items={skills} setItems={setSkills} type="text"/>
-            </div>
-
-            {/*Languages */}
-            <div className="project-form__field">
-              <label htmlFor="languages" className="project-form__label">
-                Languages
-              </label>
-              <DynamicForm label="Languages" name="languages" items={languages} setItems={setLanguages} type="text"/>
-            </div>
+        ) : (
+            <input type = "text" value = {editValue} onChange = {handleChange}/>
+            )
+            <button onClick = {handleSave}>Save</button>
+            <button onClick = {closeModal}>Cancel</button>
+            {error && <p>{error}</p>}
         </div>
-
-        <button type="submit" className="project-form__submit">
-          Submit profile information
-        </button>
-      </form>
-    </section>
-  );
+    );
 };
 
 export default ProfileEdit;
