@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-const host = import.meta.env.VITE_SERVER_HOST;
-const PORT = import.meta.env.VITE_SERVER_PORT;
 import "./ProjectDetails.scss";
 import backArrow from "../../assets/images/arrow_back.png"
-
 import graphs from "../../assets/images/graphs.png"
 import second_graphs from "../../assets/images/second_graphs.png"
+import ProjectEdit from '../../components/ProjectEdit/ProjectEdit';
 
-import axios from 'axios';
+const host = import.meta.env.VITE_SERVER_HOST;
+const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
 
 const ProjectDetails = () => {
   const navigate = useNavigate();
-
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [failedAuth, setFailedAuth] = useState(false);
-
-  //Use states for the edit component
   const [currentEditField, setCurrentEditField] = useState("");
   const [currentValue, setCurrentValue] = useState("");
 

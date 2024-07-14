@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
@@ -18,9 +17,12 @@ const ProjectEdit = ({setProject, project}) => {
     const query = new URLSearchParams(location.search);
     const field = query.get("field");
     const value = query.get("value");
+    console.log("field in project edit", field);
+    
     const [error, setError] = useState("");
     const [editValues, setEditValues] = useState(value);
     const [failedAuth, setFailedAuth] = useState(false);
+    
     
     //retrieve the JWT token from the session storage
     const token = sessionStorage.getItem("JWTtoken");
@@ -44,6 +46,19 @@ const ProjectEdit = ({setProject, project}) => {
       }
     };
 
+    const handleDeleteEntireProject = async (field) => {
+      try {
+        const response = await axios.delete(projectUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProject(response.data);
+      } catch (error) {
+        console.error('Error deleting section:', error);
+      }
+    };
+
     //FORM FOR USER TO INPUT PERSONAL INFORMATION
     const handleSave = async(e)=>{
         //might need to refresh my memory on response.data syntax!
@@ -51,22 +66,26 @@ const ProjectEdit = ({setProject, project}) => {
  
         const updatedValue = editValues;
         console.log("updatedValue", updatedValue);
-        const updatedSection = { [field]: updatedValue };
+        let updatedSection = { [field]: updatedValue };
+        if (field !== "about"){
+          updatedSection = updatedSection[field].split(",");
+        }
         console.log("updatedSection", updatedSection);
 
         try {
-          const response = await axios.patch(projectUrlUrl, updatedSection, {
+          const response = await axios.patch(projectUrl, updatedSection, {
             headers: {
               Authorization: `Bearer ${token}`
             }
         });
+        console.log("project edit response.data", response.data);
         setProject(response.data);
-        console.log("project edit entire project?", project);
         navigate(`/project/${id}`);
       } catch (error) {
         setError('Error updating your project', error);
       }
     };
+    console.log("project edit entire project?", project);
 
     if (failedAuth) {
       return (
