@@ -10,13 +10,14 @@ import "./ProfileEdit.scss"
 
 const profileUrl = `${baseUrl}/users/profile`;
 
-const ProfileAdd = ({aKey, stateVals}) => {
+const ProfileAdd = ({field, closeModal, setUserInfo, userInfo}) => {
   const navigate = useNavigate();
-  const [error, setError] = useSate("");
+  const [error, setError] = useState("");
+  const [newValues, setNewValues] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [failedAuth, setFailedAuth] = useState(false);
-  const [languages, setLanguages] = useState([]);
-  const [skillSet, setSkillSet] = useState([]);
+  //const [languages, setLanguages] = useState([]);
+  //const [skillSet, setSkillSet] = useState([]);
   //retrieve the JWT token from the session storage
   const token = sessionStorage.getItem("JWTtoken");
 
@@ -29,28 +30,40 @@ const ProfileAdd = ({aKey, stateVals}) => {
     //FORM FOR USER TO INPUT PERSONAL INFORMATION
     const handleAddForm = async(e)=>{
       e.preventDefault();
-      const token = sessionStorage.getItem("JWTtoken");
-
-      let addedSection = {};
-
-      if (aKey === about){
-        addedSection.about = e.target.about.value;
-      }
-      else if(aKey === skills){
-        addedSection.skills = skillSet;
+      let addedValue;
+      if (field === "about"){
+        //the about section is a string, but newValues is an array
+        addedValue = newValues.join(",");
       }
       else{
-        addedSection.languages_spoken = languages;
+        //get all the elements of the array for that given field
+        //example skills = [a, b, c]
+        if (userInfo[field].length === 0){
+          addedValue  = [...newValues];
+        }
+        else{
+          //add the newValues to the back of the array
+          addedValue = [...(userInfo[field]), ...newValues];
+        }
       }
 
 
+      //get the field we want to add
+      //get the information associated with that field
+      //example. response.data.field
+      //but the latest information is held in userInfo, which was passed as a param
+      //
+      /*
+
+*/
+      const addedSection = {[field] : addedValue};
       try {
-        await axios.post(profileUrl, addedSection, {
+        const response  = await axios.post(profileUrl, addedSection, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        e.target.reset();
+        /*
         if (aKey === languages_spoken ){
             setSkills([]);
         }
@@ -58,11 +71,14 @@ const ProfileAdd = ({aKey, stateVals}) => {
             setLanguages([]);
         }
         navigate("/profile")
+        */
+       setUserInfo(response.data);
+       closeModal();
       } catch (error) {
         setError('Error creating a new profile.');
       }
     }
-    handleEditForm();
+    handleAddForm();
   },[token]);
 
   if (failedAuth) {
@@ -79,60 +95,26 @@ const ProfileAdd = ({aKey, stateVals}) => {
   return isLoading ? (
     <h1>Loading...</h1>
   ) : (
-    <section className="create-project">
-        <div className='create-project__header'>
-            <div className = "create-project__title-section">
-              <img
-                className="create-project__header-arrow"
-                src={backArrow}
-                alt="back arrow"
-                onClick={() => navigate('/profile')}
-              />
-              <h1 className="create-project__title">Add to your profile</h1>
-            </div>
-        </div>
-      <form className="project-form" onSubmit={handleProfileForm}>
-        <div className="project-form__fields">
+    <section className="add-section">
+      <form className="project-form" onSubmit={handleAddForm}>
+          <label htmlFor={field}>{field}</label>
             {/*About */}
-            {aKey === about && (
-            <div className="project-form__field">
-                <label htmlFor="about" className="project-form__label">
-                About
-                </label>
+            {field === "about" ? (
                 <input
-                className="project-form__input-field"
-                placeholder='About section'
-                type="text"
-                name="about"
-                id="about"
-                maxLength="300"
+                    className="project-form__input-field"
+                    placeholder='About section'
+                    type="text"
+                    name={field}
+                    id={field}
+                    maxLength="300"
+                    value = {newValues}
+                    onChange = {(e) => setNewValues([e.target.value])}
                 />
-            </div>
-            )}
-            {/*Skills */}
-            {aKey === skills && (
-            <div className="project-form__field">
-                <label htmlFor="skill" className="project-form__label">
-                    Skills
-                </label>
-                <DynamicForm label="Skills" name="skills" items={skillSet} setItems={setSkillSet} type="text"/>
-                </div>
-            )}
-            {/*Languages */}
-            {aKey === languages_spoken && (
-            <div className="project-form__field">
-                <label htmlFor="languages" className="project-form__label">
-                Languages
-                </label>
-                <DynamicForm label="Languages" name="languages" items={languages} setItems={setLanguages} type="text"/>
-            </div>
-            )}
-        </div>
-
-        <button type="submit" className="project-form__submit">
-          Confirm
-        </button>
-      </form>
+                ):(
+                  <DynamicForm label={field} name={field} items={newValues} setItems={setNewValues} type="text"/>
+                )}
+              <button type="submit" className="project-form__submit">Confirm</button>
+          </form>
     </section>
   );
 };

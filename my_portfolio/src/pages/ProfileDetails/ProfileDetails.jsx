@@ -6,18 +6,20 @@ const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
 const profileUrl = `${baseUrl}/users/profile`;
 import ProfileEdit from "../../components/ProfileEdit/ProfileEdit";
+import ProfileAdd from "../../components/ProfileAdd/ProfileAdd";
+
 import "./ProfileDetails.scss";
 
 const ProfileDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({});
   const [failedAuth, setFailedAuth] = useState(false);
- // const [skillSet, setSkillSet] = useState([]);
+  //Diable or permits edits and additions, respectively.
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [currentEditField, setCurrentEditField] = useState("");
-
   const [addModalOpen, setAddModalOpen] = useState(false);
-  const [currentAddField, setCurrentAddField] = useState("");
+  
+  const [currentEditField, setCurrentEditField] = useState("");
+  const [currentAddField, setCurrentAddField] = useState(false);
 
   const [currentValue, setCurrentValue] = useState("");
  
@@ -68,7 +70,26 @@ const ProfileDetails = () => {
   const closeEditModal = () => {
     setEditModalOpen(false);
   };
+  const closeAddModal = () =>{
+    //if we already have an about section in place,
+    //then this should be disabled.
+    setAddModalOpen(false);
 
+  }
+
+  const handleDelete = async (field) => {
+    try {
+      const response = await axios.patch(profileUrl, { [field]: null }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserInfo(response.data);
+    } catch (error) {
+      console.error('Error deleting section:', error);
+    }
+  };
+  
   return failedAuth ? (
     <main>
       <p>You must be logged in to see this page.</p>
@@ -82,11 +103,8 @@ const ProfileDetails = () => {
     {/*Name */}
     <section>
         <h1>{userInfo.display_name || userInfo.name}</h1>
-      <button type = "button" onClick={() =>{
-        openEditModal("display_name", (userInfo.display_name || userInfo.name))
-      }}> Edit 
-      </button>
-  </section>
+      <button type = "button" onClick={() =>{ openEditModal("display_name", (userInfo.display_name || userInfo.name))}}> Edit </button>
+    </section>
       
     {/*About */}
     <section>
@@ -94,12 +112,13 @@ const ProfileDetails = () => {
       {userInfo.about && (
       <p>{userInfo.about || "No about section provided"}</p>
       )}
-      <button type = "button" onClick={() =>{
-        openEditModal("about", userInfo.about || "")
+      <button type = "button" onClick={() =>{ openEditModal("about", userInfo.about || "")
       }}> Edit </button>
-      <button type = "button" onClick={() =>{
-        openAddModal("about")
-      }}> Add </button>
+      {!userInfo.about && (
+        <button type="button" onClick={() => openAddModal("about")}>Add</button>
+      )}
+      <button type="button" onClick={() => handleDelete("about")}>Delete About</button>
+
     </section>
 
     {/* Skills*/}
@@ -114,6 +133,8 @@ const ProfileDetails = () => {
       </div>
       <button onClick={() => openEditModal("skills", userInfo.skills || [])}>Edit</button>
       <button onClick={() =>openEditModal("skills")}>Add </button>
+      <button type="button" onClick={() => handleDelete("skills")}>Delete Skills</button>
+
     </section>
     
     {/* Languages*/}
@@ -129,6 +150,8 @@ const ProfileDetails = () => {
 
       <button onClick={() => openEditModal("languages_spoken", userInfo.languages_spoken || [])}>Edit</button>
       <button onClick={() => openEditModal("languages_spoken")}>Add</button>
+      <button type="button" onClick={() => handleDelete("languages_spoken")}>Delete Languages</button>
+
     </section>
       
       <button className="logout" onClick={handleLogout}>
@@ -138,10 +161,18 @@ const ProfileDetails = () => {
         <ProfileEdit 
           field = {currentEditField}
           value = {currentValue}
-          closeModal = {closeEditModal}
+          closeModal = {closeModal}
           setUserInfo = {setUserInfo}
           userInfo = {userInfo}
           />
+      )}
+      {addModalOpen && (
+        <ProfileAdd 
+          field = {currentEditField}
+          closeModal = {closeModal}
+          setUserInfo = {setUserInfo}
+          userInfo = {userInfo}
+        />
       )}
     </div>
   );

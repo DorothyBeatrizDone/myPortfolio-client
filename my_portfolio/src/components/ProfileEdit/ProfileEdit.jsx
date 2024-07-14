@@ -12,8 +12,8 @@ import "./ProfileEdit.scss"
 const profileUrl = `${baseUrl}/users/profile`;
 
 const ProfileEdit = ({field, value, closeModal, setUserInfo, userInfo}) => {
-    const [error, setError] = useState(value);
-    const [editValue, setEditValue] = useState("");
+    const [error, setError] = useState("");
+    const [editValue, setEditValue] = useState(value);
 
     //retrieve the JWT token from the session storage
     const token = sessionStorage.getItem("JWTtoken");
@@ -21,9 +21,8 @@ const ProfileEdit = ({field, value, closeModal, setUserInfo, userInfo}) => {
     //FORM FOR USER TO INPUT PERSONAL INFORMATION
     const handleSave = async()=>{
         //might need to refresh my memory on response.data syntax!
-      let updatedProfile = { ...userInfo, [field]:editValue}
       try {
-        const response = await axios.put(profileUrl, updatedProfile, {
+        const response = await axios.patch(profileUrl, {[field]: editValue}, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -31,7 +30,7 @@ const ProfileEdit = ({field, value, closeModal, setUserInfo, userInfo}) => {
         setUserInfo(response.data)
         closeModal();
       } catch (error) {
-        setError('Error editing.');
+        setError('Error updating your profile', error);
       }
     };
 
@@ -39,25 +38,16 @@ const ProfileEdit = ({field, value, closeModal, setUserInfo, userInfo}) => {
         setEditValue(e.target.value);
     };
 
+
     return (
     <section className="edit">
         <h1>Edit {field}</h1>
-        {/* If the field is skills or languages then call Dynamic Form}*/}
-        {field === "skills" || field === "languages"} ?(
-            <DynamicForm
-                label = {field === "skills" ? "Skills" : "Languages" }
-                name = {field}
-                items = {editValue}
-                setItems = {setEditValue}
-                type = "text"
-            />
-        ) : (
-            <input type = "text" value = {editValue} onChange = {handleChange}/>
-            )
-            <button onClick = {handleSave}>Save</button>
-            <button onClick = {closeModal}>Cancel</button>
-            {error && <p>{error}</p>}
-        </div>
+          <form onSubmit = {handleSave}>
+            <label htmlFor={field}>{field}</label>
+            <input type = "text" id = {field} name = {field} value = {editValue} onChange = {handleChange}/>
+            <button type="submit">Save</button>
+          </form>
+      </section>
     );
 };
 
