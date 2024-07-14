@@ -29,6 +29,19 @@ const ProfileEdit = ({setUserInfo, userInfo}) => {
       }
     },[token]);
 
+    const handleDelete = async (field) => {
+      try {
+        const response = await axios.patch(profileUrl, { [field]: null }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error('Error deleting section:', error);
+      }
+    };
+
     //FORM FOR USER TO INPUT PERSONAL INFORMATION
     const handleSave = async(e)=>{
         //might need to refresh my memory on response.data syntax!
@@ -75,6 +88,7 @@ const ProfileEdit = ({setUserInfo, userInfo}) => {
           <label htmlFor={field}>{field}</label>
           <input type = "text" id = {field} name = {field} value = {editValues} onChange = {handleChange}/>
           <button type="submit">Save changes</button>
+          <button type="button" onClick={() => handleDelete(field)}>Delete {field}</button>
         </form>
       </section>
     );

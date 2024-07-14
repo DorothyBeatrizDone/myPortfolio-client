@@ -63,19 +63,9 @@ const ProfileDetails = () => {
     //For lists, we need to have a current account of the elements in the list.
     navigate(`/profile/add?field=${field}&value=${encodeURIComponent(value)}`)
   };
+  console.log("userInfo", userInfo);
+  console.log("userInfo.skills", userInfo.skills);
 
-  const handleDelete = async (field) => {
-    try {
-      const response = await axios.patch(profileUrl, { [field]: null }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUserInfo(response.data);
-    } catch (error) {
-      console.error('Error deleting section:', error);
-    }
-  };
   
   return failedAuth ? (
     <main>
@@ -102,14 +92,13 @@ const ProfileDetails = () => {
       )}
       <button type = "button" onClick={() =>{ openEditModal("about", userInfo.about || "") }}> Edit </button>
       {!userInfo.about && (<button type="button" onClick={() => openAddModal("about", "")}>Add</button> )}
-      {!userInfo.about && (<button type="button" onClick={() => handleDelete("about")}>Delete About</button>)}
     </section>
 
     {/* Skills*/}
     <section>
       <h2>Skills</h2>
       <div className="project-info__tags">
-        {userInfo.skills && userInfo.skills.map((skill,index) => (
+        {userInfo.skills && userInfo.skills.split(",").map((skill,index) => (
           <div className="project-info__tag" key={index}>
             {skill}
           </div>
@@ -117,15 +106,13 @@ const ProfileDetails = () => {
       </div>
       <button onClick={() => openEditModal("skills", userInfo.skills || [])}>Edit</button>
       <button onClick={() => openAddModal("skills", userInfo.skills || [])}>Add</button>
-      <button type="button" onClick={() => handleDelete("skills")}>Delete Skills</button>
-
     </section>
     
     {/* Languages*/}
     <section>
       <h2>Languages</h2>
       <div className="project-info__tags">
-        {userInfo.languages_spoken && userInfo.languages_spoken.map((language, index) => (
+        {userInfo.languages_spoken && userInfo.languages_spoken.split(",").map((language, index) => (
           <div className="project-info__tag" key={index}>
             {language}
           </div>
@@ -134,7 +121,6 @@ const ProfileDetails = () => {
 
       <button onClick={() => openEditModal("languages_spoken", userInfo.languages_spoken || [])}>Edit</button>
       <button onClick={() => openAddModal("languages_spoken", userInfo.languages_spoken || [])}>Add</button>
-      <button type="button" onClick={() => handleDelete("languages_spoken")}>Delete Languages</button>
 
     </section>
       
