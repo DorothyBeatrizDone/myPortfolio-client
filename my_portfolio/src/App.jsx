@@ -7,7 +7,8 @@ import ProjectUpload from "./pages/ProjectUpload/ProjectUpload";
 import ProjectDetails from "./pages/ProjectDetails/ProjectDetails";
 import ProfileDetails from "./pages/ProfileDetails/ProfileDetails";
 //import EditProfile from "./pages/Profile/EditProfile";
-
+import ProfileAdd from "./components/ProfileAdd/ProfileAdd";
+import ProfileEdit from "./components/ProfileEdit/ProfileEdit";
 import "./App.scss";
 
 const App = () => {
@@ -19,11 +20,9 @@ const App = () => {
           <Route path="/enroll" element={<Enroll />} />
 
           <Route path="/profile" element={<ProfileDetails />} />
-          {/*
-            <Route path="/profile/edit" element={<EditProfile />} />
-          <Route path="/profile/delete" element={<EditProfile />} />
-          */
-          }
+          <Route path="/profile/edit" element={<ProfileEdit  />} />
+          <Route path="/profile/add" element={<ProfileAdd />} />
+
 
 
           {/*PROJECT ROUTES */}

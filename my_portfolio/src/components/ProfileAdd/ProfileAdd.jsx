@@ -1,86 +1,95 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DynamicForm from "../DynamicForm/DynamicForm"
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import backArrow from "../../assets/images/arrow_back.png";
+
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
-import backArrow from "../../assets/images/arrow_back.png";
-import "./ProfileEdit.scss"
 
 const profileUrl = `${baseUrl}/users/profile`;
+  //FORM FOR USER TO INPUT PERSONAL INFORMATION
 
-const ProfileAdd = ({field, closeModal, setUserInfo, userInfo}) => {
+const ProfileAdd = ({setUserInfo, userInfo}) => {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  const location = useLocation();
+  const query  = new URLSearchParams(location.search);
+  const field = query.get("field");
+  const values = query.get("value");
+  const [addedValues, setAddedValues] = useState(values);
+
+  //console.log("the query is", query);
+  console.log('the new field is ', field);
+
+  //console.log("inside profile add type field", typeof(field));
+  // console.log("stringified field", JSON.stringify(field));
+
   const [newValues, setNewValues] = useState([]);
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [failedAuth, setFailedAuth] = useState(false);
-  //const [languages, setLanguages] = useState([]);
-  //const [skillSet, setSkillSet] = useState([]);
-  //retrieve the JWT token from the session storage
+  
   const token = sessionStorage.getItem("JWTtoken");
-
+  console.log(token);
   useEffect(() => {
     if (!token) {
       setFailedAuth(true);
       return;
     }
+  }, [token]);
 
-    //FORM FOR USER TO INPUT PERSONAL INFORMATION
-    const handleAddForm = async(e)=>{
-      e.preventDefault();
-      let addedValue;
-      if (field === "about"){
-        //the about section is a string, but newValues is an array
-        addedValue = newValues.join(",");
-      }
-      else{
-        //get all the elements of the array for that given field
-        //example skills = [a, b, c]
-        if (userInfo[field].length === 0){
-          addedValue  = [...newValues];
-        }
-        else{
-          //add the newValues to the back of the array
-          addedValue = [...(userInfo[field]), ...newValues];
-        }
-      }
+  const handleAddForm = async(e)=>{
+    e.preventDefault();
+    let addedValue;
 
-
-      //get the field we want to add
-      //get the information associated with that field
-      //example. response.data.field
-      //but the latest information is held in userInfo, which was passed as a param
-      //
-      /*
-
-*/
-      const addedSection = {[field] : addedValue};
-      try {
-        const response  = await axios.post(profileUrl, addedSection, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        /*
-        if (aKey === languages_spoken ){
-            setSkills([]);
-        }
-        if (aKey === languages_spoken){
-            setLanguages([]);
-        }
-        navigate("/profile")
-        */
-       setUserInfo(response.data);
-       closeModal();
-      } catch (error) {
-        setError('Error creating a new profile.');
-      }
+    console.log("just below add form userInfo", userInfo)
+    if (field == "about"){
+      //the about section is a string, but newValues is an array
+      addedValue = newValues.join(",");
+      console.log("inside about condition")
     }
-    handleAddForm();
-  },[token]);
+    //get all the elements of the array for that given field
+    //example skills = [a, b, c]
+    else{
+      //get all the elements of the array for that given field
+      //example skills = [a, b, c]
+      console.log("userInfo", userInfo);
+      
+      if (!addedValues) {
+        //there are no current values for that field.
+        addedValue = [...newValues];
+        console.log("added values ", addedValue)
+      } else {
+        //add the newValues to the back of the array
+        addedValue = [...addedValues, ...newValues];
+      }
+        
 
+      //!userInfo[field]
+    }
+    //console.log("addedValue outside all the if and elses", addedValue );
+    
+    //get the field we want to add. Get the information associated with that field
+    //Example. response.data.field. The latest information is held in userInfo, which was passed as a param
+
+    const addedSection = {[field] : addedValue};
+    try {
+      const response  = await axios.patch(profileUrl, addedSection, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      console.log("bottom handleAddForm")
+      setUserInfo(response.data);
+      setIsLoading(false);
+      navigate("/profile");
+    } catch (error) {
+      setError('Error creating a new profile.');
+    }
+  };
+  
   if (failedAuth) {
     return (
       <main className="profile">
@@ -92,14 +101,12 @@ const ProfileAdd = ({field, closeModal, setUserInfo, userInfo}) => {
     );
   }
 
-  return isLoading ? (
-    <h1>Loading...</h1>
-  ) : (
+  return (
     <section className="add-section">
       <form className="project-form" onSubmit={handleAddForm}>
-          <label htmlFor={field}>{field}</label>
+          <label htmlFor={field}>Add {field}</label>
             {/*About */}
-            {field === "about" ? (
+            {field == "about" ? (
                 <input
                     className="project-form__input-field"
                     placeholder='About section'
@@ -113,7 +120,7 @@ const ProfileAdd = ({field, closeModal, setUserInfo, userInfo}) => {
                 ):(
                   <DynamicForm label={field} name={field} items={newValues} setItems={setNewValues} type="text"/>
                 )}
-              <button type="submit" className="project-form__submit">Confirm</button>
+              <button type="submit" className="project-form__submit">Add details</button>
           </form>
     </section>
   );

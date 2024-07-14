@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
 const profileUrl = `${baseUrl}/users/profile`;
-import ProfileEdit from "../../components/ProfileEdit/ProfileEdit";
-import ProfileAdd from "../../components/ProfileAdd/ProfileAdd";
 
 import "./ProfileDetails.scss";
 
@@ -14,19 +12,15 @@ const ProfileDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({});
   const [failedAuth, setFailedAuth] = useState(false);
-  //Diable or permits edits and additions, respectively.
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [addModalOpen, setAddModalOpen] = useState(false);
-  
   const [currentEditField, setCurrentEditField] = useState("");
-  const [currentAddField, setCurrentAddField] = useState(false);
-
   const [currentValue, setCurrentValue] = useState("");
  
   // const [languages, setLanguages] = useState([]);
 
   //retrieve the JWT token from the session storage
   const token = sessionStorage.getItem("JWTtoken");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {
@@ -59,23 +53,16 @@ const ProfileDetails = () => {
   const openEditModal = (field, value) => {
     setCurrentEditField(field);
     setCurrentValue(value);
-    setEditModalOpen(true);
+    navigate(`/profile/edit?field=${field}&value=${encodeURIComponent(value)}`);
   };
 
-  const openAddModal = (field) => {
-    setCurrentAddField(field);
-    setAddModalOpen(true);
+  const openAddModal = (field, value) => {
+    setCurrentEditField(field);
+    setCurrentValue(value);
+    //https://reactnavigation.org/docs/use-navigation-state/
+    //For lists, we need to have a current account of the elements in the list.
+    navigate(`/profile/add?field=${field}&value=${encodeURIComponent(value)}`)
   };
-
-  const closeEditModal = () => {
-    setEditModalOpen(false);
-  };
-  const closeAddModal = () =>{
-    //if we already have an about section in place,
-    //then this should be disabled.
-    setAddModalOpen(false);
-
-  }
 
   const handleDelete = async (field) => {
     try {
@@ -103,7 +90,8 @@ const ProfileDetails = () => {
     {/*Name */}
     <section>
         <h1>{userInfo.display_name || userInfo.name}</h1>
-      <button type = "button" onClick={() =>{ openEditModal("display_name", (userInfo.display_name || userInfo.name))}}> Edit </button>
+      <button type = "button" onClick={() =>{ 
+        openEditModal("display_name", (userInfo.display_name || userInfo.name))}}> Edit </button>
     </section>
       
     {/*About */}
@@ -112,13 +100,9 @@ const ProfileDetails = () => {
       {userInfo.about && (
       <p>{userInfo.about || "No about section provided"}</p>
       )}
-      <button type = "button" onClick={() =>{ openEditModal("about", userInfo.about || "")
-      }}> Edit </button>
-      {!userInfo.about && (
-        <button type="button" onClick={() => openAddModal("about")}>Add</button>
-      )}
-      <button type="button" onClick={() => handleDelete("about")}>Delete About</button>
-
+      <button type = "button" onClick={() =>{ openEditModal("about", userInfo.about || "") }}> Edit </button>
+      {!userInfo.about && (<button type="button" onClick={() => openAddModal("about", "")}>Add</button> )}
+      {!userInfo.about && (<button type="button" onClick={() => handleDelete("about")}>Delete About</button>)}
     </section>
 
     {/* Skills*/}
@@ -132,7 +116,7 @@ const ProfileDetails = () => {
         ))}
       </div>
       <button onClick={() => openEditModal("skills", userInfo.skills || [])}>Edit</button>
-      <button onClick={() =>openEditModal("skills")}>Add </button>
+      <button onClick={() => openAddModal("skills", userInfo.skills || [])}>Add</button>
       <button type="button" onClick={() => handleDelete("skills")}>Delete Skills</button>
 
     </section>
@@ -149,7 +133,7 @@ const ProfileDetails = () => {
       </div>
 
       <button onClick={() => openEditModal("languages_spoken", userInfo.languages_spoken || [])}>Edit</button>
-      <button onClick={() => openEditModal("languages_spoken")}>Add</button>
+      <button onClick={() => openAddModal("languages_spoken", userInfo.languages_spoken || [])}>Add</button>
       <button type="button" onClick={() => handleDelete("languages_spoken")}>Delete Languages</button>
 
     </section>
@@ -157,23 +141,6 @@ const ProfileDetails = () => {
       <button className="logout" onClick={handleLogout}>
         Logout
       </button>
-      {editModalOpen && (
-        <ProfileEdit 
-          field = {currentEditField}
-          value = {currentValue}
-          closeModal = {closeModal}
-          setUserInfo = {setUserInfo}
-          userInfo = {userInfo}
-          />
-      )}
-      {addModalOpen && (
-        <ProfileAdd 
-          field = {currentEditField}
-          closeModal = {closeModal}
-          setUserInfo = {setUserInfo}
-          userInfo = {userInfo}
-        />
-      )}
     </div>
   );
 };
