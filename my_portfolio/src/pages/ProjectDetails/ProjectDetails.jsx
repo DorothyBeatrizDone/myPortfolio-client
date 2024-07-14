@@ -21,6 +21,10 @@ const ProjectDetails = () => {
   const [error, setError] = useState("");
   const [failedAuth, setFailedAuth] = useState(false);
 
+  //Use states for the edit component
+  const [currentEditField, setCurrentEditField] = useState("");
+  const [currentValue, setCurrentValue] = useState("");
+
  //get the JWT token from the session storage
  const token = sessionStorage.getItem("JWTtoken");
 
@@ -48,6 +52,12 @@ const ProjectDetails = () => {
     fetchProject();
   }, [id,token]);
 
+  const openEditModal = (field, value) => {
+    setCurrentEditField(field);
+    setCurrentValue(value);
+    navigate(`/project/${id}/edit?field=${field}&value=${encodeURIComponent(value)}`);
+  };
+  
   if (failedAuth){
     return(
       <main>
@@ -70,8 +80,9 @@ const ProjectDetails = () => {
                 onClick={() => navigate('/dashboard')}
               />
               <h1 className="project__title">{project.title}</h1>
+              <button type = "button" onClick={() =>{ 
+                  openEditModal("title", project.title )}}> Edit </button>
             </div>
-          <button className ="edit-button" type ="submit">Edit</button>
         </div>
         <div className="project-info">
           <div className='project-info__image'>
@@ -81,6 +92,9 @@ const ProjectDetails = () => {
           <div className = 'project-info__section' >
             <h2 className="project-info__label">Description</h2>
             <p className = "project-info__description">{project.description}</p>
+            <button className ="edit-button" type ="button" onClick = {() => {
+              openEditModal("description", (project.description || ""))
+            }}>Edit</button>
           </div>
           <div className = "project-info__section">
             <h2 className="project-info__label">Subject categories</h2>
@@ -91,6 +105,7 @@ const ProjectDetails = () => {
                 </div>
                 ))}
             </div>
+            <button onClick={() => openEditModal("subject", project.subject || [])}>Edit</button>
           </div>
           {project.skills && (
           <div className = "project-info__section">
@@ -102,6 +117,7 @@ const ProjectDetails = () => {
                 </div>
                 ))}
             </div>
+            <button onClick={() => openEditModal("skills", project.skills || [])}>Edit</button>
           </div>
           )}
           <div className = "project-info__section">
@@ -119,6 +135,7 @@ const ProjectDetails = () => {
                 </div>
                 ))}
             </div>
+            <button onClick={() => openEditModal("tags", project.tags|| [])}>Edit</button>
           </div>
           )}
         </div>

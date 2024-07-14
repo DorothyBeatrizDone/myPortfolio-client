@@ -6,9 +6,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import ProjectUpload from "./pages/ProjectUpload/ProjectUpload";
 import ProjectDetails from "./pages/ProjectDetails/ProjectDetails";
 import ProfileDetails from "./pages/ProfileDetails/ProfileDetails";
-//import EditProfile from "./pages/Profile/EditProfile";
 import ProfileAdd from "./components/ProfileAdd/ProfileAdd";
 import ProfileEdit from "./components/ProfileEdit/ProfileEdit";
+import ProjectEdit from "./components/ProjectEdit/ProjectEdit";
 import "./App.scss";
 
 const App = () => {
@@ -28,8 +28,8 @@ const App = () => {
           {/*PROJECT ROUTES */}
           <Route path="/upload-project" element={<ProjectUpload />} />
           <Route path="/project/:id" element={<ProjectDetails />} />
-          <Route path="/project/:id/edit" element={<ProjectDetails />} />
-          <Route path="/project/:id/delete" element={<ProjectDetails />} />
+          <Route path="/project/:id/edit" element={<ProjectEdit />} />
+          <Route path="/project/:id/delete" element={<ProjectEdit />} />
           <Route path="/dashboard" element={<Dashboard />} />
 
 
