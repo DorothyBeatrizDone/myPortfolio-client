@@ -99,7 +99,7 @@ const ProjectDetails = () => {
               <img
                 src={edit_icon}
                 alt="Edit"
-                className="edit-icon"
+                className="profile__icon"
                 onClick={() => openEditModal("description", (project.description || ""))}
               />
             </div>
@@ -110,7 +110,7 @@ const ProjectDetails = () => {
               <h2 className="project-info__label">Subject categories</h2>
               <div className="project-info__tags">
                 {project.subject.map((subj) => (
-                  <div className="project-info__tag" key={project.id}>
+                  <div className="button-add" key={project.id}>
                       {subj}
                   </div>
                   ))}
@@ -120,7 +120,7 @@ const ProjectDetails = () => {
             <img
               src={edit_icon}
               alt="Edit"
-              className="edit-icon"
+              className="profile__icon"
               onClick={() => openEditModal("subject", project.subject || [])}
             /> 
             </div>
@@ -132,7 +132,7 @@ const ProjectDetails = () => {
               <h2 className="project-info__label">Skills categories</h2>
               <div className="project-info__tags">
                 {project.skills.map((skill) => (
-                  <div className="project-info__tag" key={project.id}>
+                  <div className="button-add" key={project.id}>
                       {skill}
                   </div>
                   ))}
@@ -142,7 +142,7 @@ const ProjectDetails = () => {
               <img
                 src={edit_icon}
                 alt="Edit"
-                className="edit-icon"
+                className="profile__icon"
                 onClick={() => openEditModal("skills", project.skills || [])}
               />
             </div>
@@ -163,7 +163,7 @@ const ProjectDetails = () => {
               {/*But did I make general tags?? */}
               <div className="project-info__tags">
                 {project.tags.map((tag) => (
-                  <div className="project-info__tag" key={project.id}>
+                  <div className="button-add" key={project.id}>
                       {tag}
                   </div>
                   ))}
@@ -173,7 +173,7 @@ const ProjectDetails = () => {
               <img
                   src={edit_icon}
                   alt="Edit"
-                  className="edit-icon"
+                  className="profile__icon"
                   onClick={() => openEditModal("tags", project.tags || [])}
                 />
             </div>

@@ -1,0 +1,10 @@
+@use '../../styles/partials/mixins.scss' as *;
+@use '../../styles/partials/typography.scss' as *;
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/globals.scss' as *;
+.project-form{
+    &__buttons{
+        @include flex(row,space-evenly,center);
+        gap:2rem;
+    }
+}

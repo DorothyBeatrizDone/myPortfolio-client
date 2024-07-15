@@ -133,7 +133,7 @@ const ProfileDetails = () => {
             <h2 className="project-info__label">Skills</h2>
               <div className="project-info__tags">
                 {userInfo.skills && userInfo.skills.split(",").map((skill,index) => (
-                  <div className="project-info__tag" key={index}>
+                  <div className="button-add" key={index}>
                     {skill}
                   </div>
                 ))}
@@ -162,7 +162,7 @@ const ProfileDetails = () => {
             <h2 className="project-info__label">Languages</h2>
             <div className="project-info__tags">
               {userInfo.languages_spoken && userInfo.languages_spoken.split(",").map((language, index) => (
-                <div className="project-info__tag" key={index}>
+                <div className="button-add" key={index}>
                   {language}
                 </div>
               ))}
@@ -188,10 +188,11 @@ const ProfileDetails = () => {
         </section>
       </div>
 
-      
+      {/*
       <button className="logout" onClick={handleLogout}>
         Logout
       </button>
+      */}
       <Footer/>
     </div>
   );

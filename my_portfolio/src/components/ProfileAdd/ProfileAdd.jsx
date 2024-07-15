@@ -108,15 +108,16 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
     <>
     <Header/>
       <section className="project-form__fields">
-        <div className = "project__title-section">
-            <img
-              className="project__header-arrow"
-              src={backArrow}
-              alt="back arrow"
-              onClick={() => navigate('/profile')}
-            />
-            <h1 className="project__title">Add {field}</h1>
-        </div>
+          <div className = "create-project__header">
+              <img
+                className="profile__icon"
+                src={backArrow}
+                alt="back arrow"
+                onClick={() => navigate('/profile')}
+              />
+              <h1 className="dashboard__title">Add {field}</h1>
+          </div>
+
         <form className="form" onSubmit={handleAddForm}>
               {/*About */}
               {field == "about" ? (

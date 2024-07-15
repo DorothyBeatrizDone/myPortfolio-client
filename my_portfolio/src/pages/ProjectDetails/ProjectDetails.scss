@@ -33,11 +33,14 @@
     &__image{
         @include flex(column,center,center);
         gap:2rem;
-        margin-bottom: $after-text-block-padding;
+        margin-bottom: 3rem;
+
+        @include tablet{
+            width:60%;
+        }
 
         .img{
-            width: 100%;
-            max-width: 100%;
+            width: 50%;
             border-radius: $border-radius;
             margin-bottom: $after-text-block-padding;
         }

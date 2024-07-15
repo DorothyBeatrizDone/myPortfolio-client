@@ -8,7 +8,7 @@ import DynamicForm from "../DynamicForm/DynamicForm";
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
-
+import "./ProfileEdit.scss";
 // Profit Edit will either modify (save) or delete the section
 const profileUrl = `${baseUrl}/users/profile`;
 
@@ -102,14 +102,14 @@ const ProfileEdit = ({setUserInfo, userInfo}) => {
   */<>
       <Header/>
       <section className="project-form__fields">
-        <div className = "project__title-section">
+        <div className = "create-project__header">
           <img
-            className="project__header-arrow"
+            className="profile__icon"
             src={backArrow}
             alt="back arrow"
             onClick={() => navigate('/profile')}
           />
-          <h1 className="project__title">Edit {field}</h1>
+          <h1 className="dashboard__title">Edit {field}</h1>
       </div>
         
         <form onSubmit = {handleSave} >
@@ -117,9 +117,9 @@ const ProfileEdit = ({setUserInfo, userInfo}) => {
             <label className = "project-form__label" htmlFor={field}>Edit {field}</label>
             <input className = "project-form__input-field" type = "text" id = {field} name = {field} value = {editValues} onChange = {handleChange}/>
           </div>
-          <div>
-            <button type="submit" className="project-info__tag">Save changes</button>
-            <button type="button" className="project-info__tag" onClick={() => handleDelete(field)}>Delete {field}</button>
+          <div className="project-form__buttons">
+            <button type="submit" className="button-add">Save changes</button>
+            <button type="button" className="button-add" onClick={() => handleDelete(field)}>Delete {field}</button>
           </div>
         </form>
       </section>

@@ -6,7 +6,7 @@
     padding:$mobile-side-margin;
 
     &__header{
-        @include flex(row, space-between,center);
+        @include flex(row, flex-start,center);
         width:100%;
         margin-bottom:$mobile-side-margin;
         border-bottom: 2px solid $cloud;
