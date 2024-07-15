@@ -5,7 +5,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
-
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 // Profit Edit will either modify (save) or delete the section
 
 const ProjectEdit = ({setProject, project}) => {
@@ -104,15 +105,22 @@ const ProjectEdit = ({setProject, project}) => {
 
 
     return (
-    <section className="edit">
-        <h1>Edit {field}</h1>
+    <>
+    <Header/>
+    <section className="project-form__fields">
+      <div className="create-project__header">
+        <h1 className="dashboard__title">Edit {field}</h1>
+      </div>
         <form onSubmit = {handleSave}>
-          <label htmlFor={field}>{field}</label>
-          <input type = "text" id = {field} name = {field} value = {editValues} onChange = {handleChange}/>
-          <button type="submit">Save changes</button>
-          <button type="button" onClick={() => handleDelete(field)}>Delete {field}</button>
+          <label className ="project-info__label" htmlFor={field}>{field}</label>
+          <input className ="project-form__input-field"type = "text" id = {field} name = {field} value = {editValues} onChange = {handleChange}/>
+          <button type="submit" className="button-add">Save changes</button>
+          <button type="button" className="button-add" onClick={() => handleDelete(field)}>Delete {field}</button>
         </form>
       </section>
+    <Footer/>
+    </>
+
     );
 };
 

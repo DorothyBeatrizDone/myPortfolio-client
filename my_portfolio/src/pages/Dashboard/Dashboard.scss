@@ -6,6 +6,7 @@
   @include tablet{
     @include flex;
     flex-wrap:wrap;
+    gap:1rem;
   }
 }
 .dashboard{
