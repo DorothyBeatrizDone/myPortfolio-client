@@ -54,7 +54,7 @@ h6 {
 
 .login{
   @include flex(column,center,center);
-  background-color: $white;
+  background-color: $light-grey;
   padding:1rem;
 
   @include tablet{
@@ -73,7 +73,12 @@ h6 {
       overflow:hidden;
       @include flex(column, center, center);
   }
-
+  &__title{
+    @include page-header;
+    margin-bottom:1rem;
+    padding-bottom:1rem;
+    border-bottom: 3px solid $light-grey;
+  }
   &__tabs{
       @include flex(row, center,center);
       margin-bottom: $after-text-block-padding;

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import backArrow from "../../assets/images/arrow_back.png"
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import DynamicForm from "../DynamicForm/DynamicForm";
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
@@ -19,6 +21,7 @@ const ProfileEdit = ({setUserInfo, userInfo}) => {
     const [error, setError] = useState("");
     const [editValues, setEditValues] = useState(value);
     const [failedAuth, setFailedAuth] = useState(false);
+    
     
     //retrieve the JWT token from the session storage
     const token = sessionStorage.getItem("JWTtoken");
@@ -82,15 +85,49 @@ const ProfileEdit = ({setUserInfo, userInfo}) => {
 
 
     return (
-    <section className="edit">
-        <h1>Edit {field}</h1>
-        <form onSubmit = {handleSave}>
-          <label htmlFor={field}>{field}</label>
-          <input type = "text" id = {field} name = {field} value = {editValues} onChange = {handleChange}/>
-          <button type="submit">Save changes</button>
-          <button type="button" onClick={() => handleDelete(field)}>Delete {field}</button>
+/*
+      <div className='project__header'>
+      <div className = "project__title-section">
+        <img
+          className="project__header-arrow"
+          src={backArrow}
+          alt="back arrow"
+          onClick={() => navigate('/dashboard')}
+        />
+        <h1 className="project__title">{project.title}</h1>
+        <button type = "button" onClick={() =>{ 
+            openEditModal("title", project.title )}}> Edit </button>
+      </div>
+  </div>
+  */<>
+      <Header/>
+      <section className="project-form__fields">
+        <div className = "project__title-section">
+          <img
+            className="project__header-arrow"
+            src={backArrow}
+            alt="back arrow"
+            onClick={() => navigate('/profile')}
+          />
+          <h1 className="project__title">Edit {field}</h1>
+      </div>
+        
+        <form onSubmit = {handleSave} >
+          <div className="project-form__field">
+            <label className = "project-form__label" htmlFor={field}>Edit {field}</label>
+            <input className = "project-form__input-field" type = "text" id = {field} name = {field} value = {editValues} onChange = {handleChange}/>
+          </div>
+          <div>
+            <button type="submit" className="project-info__tag">Save changes</button>
+            <button type="button" className="project-info__tag" onClick={() => handleDelete(field)}>Delete {field}</button>
+          </div>
         </form>
       </section>
+      <Footer/>
+  </>
+
+
+
     );
 };
 

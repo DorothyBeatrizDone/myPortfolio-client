@@ -2,24 +2,29 @@
 @use '../../styles/partials/typography.scss' as *;
 @use '../../styles/partials/variables.scss' as *;
 @use '../../styles/partials/globals.scss' as *;
+.project-list{
+  @include tablet{
+    @include flex;
+    flex-wrap:wrap;
+  }
+}
 .dashboard{
-    padding: $mobile-side-margin;
-    background-color: $white;
-    
-    @include tablet {
-      padding: $tablet-side-margin;
-    }
   
     @include desktop {
       padding: $desktop-side-margin;
     }  
 
+    &__header{
+      @include flex(row,space-between,center);
+    }
     &__title{
       @include page-header;
-      margin-bottom:$mobile-side-margin
+      margin-bottom:$mobile-side-margin;
+      color:$dark-blue
     }
     &__button-add{
       @include cta-primary;
+      max-width: 50%;
 
     }
 }

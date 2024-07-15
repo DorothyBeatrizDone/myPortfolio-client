@@ -5,6 +5,10 @@ const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
 const profileUrl = `${baseUrl}/users/profile`;
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import add_icon from "../../assets/images/add_icon.png";
+import edit_icon from "../../assets/images/edit_icon.png"
 
 import "./ProfileDetails.scss";
 
@@ -76,57 +80,119 @@ const ProfileDetails = () => {
   </main>
   ) : isLoading ? (<h1> Loading...</h1>) : (
     <div className="container">
-    
-    {/*Name */}
-    <section>
-        <h1>{userInfo.display_name || userInfo.name}</h1>
-      <button type = "button" onClick={() =>{ 
-        openEditModal("display_name", (userInfo.display_name || userInfo.name))}}> Edit </button>
-    </section>
-      
-    {/*About */}
-    <section>
-      <h2>About</h2>
-      {userInfo.about && (
-      <p>{userInfo.about || "No about section provided"}</p>
-      )}
-      <button type = "button" onClick={() =>{ openEditModal("about", userInfo.about || "") }}> Edit </button>
-      {!userInfo.about && (<button type="button" onClick={() => openAddModal("about", "")}>Add</button> )}
-    </section>
-
-    {/* Skills*/}
-    <section>
-      <h2>Skills</h2>
-      <div className="project-info__tags">
-        {userInfo.skills && userInfo.skills.split(",").map((skill,index) => (
-          <div className="project-info__tag" key={index}>
-            {skill}
+      <Header/>
+      <div className="project-form__fields">
+        <div className="create-project__header">
+          <h1 className="dashboard__title">Your Profile Details</h1>
+        </div>
+        {/*Name */}
+        <section className="project-form__field">
+          <div>
+            <h2 className="project-info__label">{userInfo.display_name || userInfo.name}</h2>
           </div>
-        ))}
-      </div>
-      <button onClick={() => openEditModal("skills", userInfo.skills || [])}>Edit</button>
-      <button onClick={() => openAddModal("skills", userInfo.skills || [])}>Add</button>
-    </section>
-    
-    {/* Languages*/}
-    <section>
-      <h2>Languages</h2>
-      <div className="project-info__tags">
-        {userInfo.languages_spoken && userInfo.languages_spoken.split(",").map((language, index) => (
-          <div className="project-info__tag" key={index}>
-            {language}
+          <div className="project-form__icons">
+            <img
+              src={edit_icon}
+              alt="Edit"
+              className="profile__icon"
+              onClick={() => openEditModal("display_name", (userInfo.display_name || userInfo.name))}
+            />
           </div>
-        ))}
+        </section>
+          
+        {/*About */}
+        <section className="project-form__field">
+          <div>
+            <h2 className="project-info__label">About</h2>
+            {userInfo.about && (
+            <p>{userInfo.about || "No about section provided"}</p>
+            )}
+          </div>
+          <div className="project-form__icons">
+            <img
+              src={edit_icon}
+              alt="Edit"
+              className="profile__icon"
+              onClick={() => openEditModal("about", userInfo.about || "")}
+            />
+            {!userInfo.about && (
+              <img
+                src={add_icon}
+                alt="Add"
+                className="profile__icon"
+                onClick={() => openAddModal("about")}
+            />
+            )}
+          </div>
+
+        </section>
+
+        {/* Skills*/}
+        <section className="project-form__field">
+          <div>
+            <h2 className="project-info__label">Skills</h2>
+              <div className="project-info__tags">
+                {userInfo.skills && userInfo.skills.split(",").map((skill,index) => (
+                  <div className="project-info__tag" key={index}>
+                    {skill}
+                  </div>
+                ))}
+              </div>
+          </div>
+
+          <div className="project-form__icons">
+            <img
+                src={edit_icon}
+                alt="Edit"
+                className="profile__icon"
+                onClick={() => openEditModal("skills", userInfo.skills || [])}
+              />
+              <img
+                src={add_icon}
+                alt="Add"
+                className="profile__icon"
+                onClick={() => openAddModal("skills")}
+              />
+          </div>
+        </section>
+        
+        {/* Languages*/}
+        <section className="project-form__field">
+          <div >
+            <h2 className="project-info__label">Languages</h2>
+            <div className="project-info__tags">
+              {userInfo.languages_spoken && userInfo.languages_spoken.split(",").map((language, index) => (
+                <div className="project-info__tag" key={index}>
+                  {language}
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+          <div className="project-form__icons">
+            <img
+              src={edit_icon}
+              alt="Edit"
+              className="profile__icon"
+              onClick={() => openEditModal("languages_spoken", userInfo.languages_spoken || [])}
+            />
+
+            <img
+              src={add_icon}
+              alt="Add"
+              className="profile__icon"
+              onClick={() => openAddModal("languages_spoken")}
+            />
+          </div>
+        </section>
       </div>
 
-      <button onClick={() => openEditModal("languages_spoken", userInfo.languages_spoken || [])}>Edit</button>
-      <button onClick={() => openAddModal("languages_spoken", userInfo.languages_spoken || [])}>Add</button>
-
-    </section>
       
       <button className="logout" onClick={handleLogout}>
         Logout
       </button>
+      <Footer/>
     </div>
   );
 };

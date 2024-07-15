@@ -9,6 +9,8 @@ import ProfileDetails from "./pages/ProfileDetails/ProfileDetails";
 import ProfileAdd from "./components/ProfileAdd/ProfileAdd";
 import ProfileEdit from "./components/ProfileEdit/ProfileEdit";
 import ProjectEdit from "./components/ProjectEdit/ProjectEdit";
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import "./App.scss";
 
 const App = () => {

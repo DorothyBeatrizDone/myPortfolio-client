@@ -2,33 +2,19 @@
 @use '../../styles/partials/typography.scss' as *;
 @use '../../styles/partials/variables.scss' as *;
 @use '../../styles/partials/globals.scss' as *;
-.header {
+.footer {
     background-color: $dark-blue;
     color: #fff;
     padding: 1rem 2rem;
+    text-align: center;
   
     &__container {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: center;
     }
   
-    &__title {
+    &__text {
       margin: 0;
-      font-size: 1.5rem;
-    }
-  
-    &__nav {
-      display: flex;
-      gap: 1rem;
-    }
-  
-    &__link {
-      color: #fff;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
   

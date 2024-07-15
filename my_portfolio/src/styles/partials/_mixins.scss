@@ -33,8 +33,8 @@
 @mixin cta-primary {
   border-radius: $border-radius;
   min-width: 100%;
-  background-color: $red;
-  border: 1px solid $red;
+  background-color: $dark-blue;
+  border: 1px solid $dark-blue;
   height: 2.25rem;
   @include link-label-button;
   color: $white;
@@ -51,16 +51,16 @@
 @mixin cta-secondary {
   border-radius: $border-radius;
   min-width: 100%;
-  background-color: $red;
-  border: 1px solid $red;
+  background-color: $dark-blue;
+  border: 1px solid $dark-blue;
   height: 2.25rem;
   @include link-label-button;
   color: $white;
 
   &:hover {
     background-color: $white;
-    border: 1px solid $red;
-    color: $red;
+    border: 1px solid $dark-blue;
+    color: $dark-blue;
     cursor: pointer;
   }
   @include tablet {
@@ -72,8 +72,8 @@
 @mixin cta-delete {
   border-radius: $border-radius;
   min-width: 100%;
-  background-color: $red;
-  border: 1px solid $red;
+  background-color: $dark-blue;
+  border: 1px solid $dark-blue;
   height: 2.25rem;
   @include link-label-button;
   color: $white;
@@ -85,8 +85,8 @@
   }
 
   &:hover {
-    background-color: darken($red, 10%);
-    border: 1px solid darken($red, 10%);
+    background-color: darken($dark-blue, 10%);
+    border: 1px solid darken($dark-blue, 10%);
     color: $white;
     cursor: pointer;
   }
@@ -108,7 +108,7 @@
 
 @mixin text-field-active {
   border-radius: $border-radius;
-  border: 2px solid $red;
+  border: 2px solid $dark-blue;
   height: 2rem;
   padding: 0 1rem;
   @include tablet {
@@ -118,7 +118,7 @@
 
 @mixin text-field-error {
   border-radius: $border-radius;
-  border: 2px solid $red;
+  border: 2px solid $dark-blue;
   height: 2rem;
   padding: 0 1rem;
   @include tablet {
@@ -130,7 +130,7 @@
 // Text Links
 // ------------------------------//
 @mixin text-link {
-  color: $red;
+  color: $dark-blue;
 
   &:hover {
     text-decoration: underline;
@@ -144,8 +144,8 @@
 @mixin tag {
   padding: 0 0.5rem;
   border-radius: $border-radius;
-  background-color: $light-grey;
-  color: $slate;
+  background-color: $light-blue;
+  color: $white;
   height: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align:center;
@@ -174,7 +174,7 @@
 }
 
 @mixin sub-header {
-  color: $myportfolio-black;
+  color: $dark-blue;
   font-family: "Titillium Web";
   font-weight: 600;
   font-size: 1.25rem;
@@ -203,20 +203,20 @@
   padding: $mobile-side-margin;
   border: none;
   border-radius: $border-radius;
-  background-color: $red;
+  background-color: $dark-blue;
   color: $white;
   font-size: 1.25rem;
 }
 
 @mixin table-header {
-  color: $slate;
+  color: $dark-blue;
   font-family: "Titillium Web";
   font-weight: 600;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   line-height: 1rem;
 
   @include tablet {
-    font-size: 0.75rem;
+    font-size: 1rem;
     line-height: 1.125rem;
   }
 }
@@ -260,21 +260,6 @@
   }
 }
 
-// ------------------------------//
-// Reset
-// ------------------------------//
-@mixin header-reset {
-  margin-block-start: 0;
-  margin-block-end: 0;
-}
 
-// ------------------------------//
-//Header Mixins
-// ------------------------------//
 
-@mixin header__navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: $tablet-side-margins;
-}
+

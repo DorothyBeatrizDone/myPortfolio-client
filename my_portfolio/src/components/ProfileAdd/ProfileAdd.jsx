@@ -3,6 +3,9 @@ import axios from "axios";
 import DynamicForm from "../DynamicForm/DynamicForm"
 import { useLocation, useNavigate } from "react-router-dom";
 import backArrow from "../../assets/images/arrow_back.png";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import add_icon from "../../assets/images/add_icon.png"
 
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
@@ -102,27 +105,40 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
   }
 
   return (
-    <section className="add-section">
-      <form className="project-form" onSubmit={handleAddForm}>
-          <label htmlFor={field}>Add {field}</label>
-            {/*About */}
-            {field == "about" ? (
-                <input
-                    className="project-form__input-field"
-                    placeholder='About section'
-                    type="text"
-                    name={field}
-                    id={field}
-                    maxLength="300"
-                    value = {newValues}
-                    onChange = {(e) => setNewValues([e.target.value])}
-                />
-                ):(
-                  <DynamicForm label={field} name={field} items={newValues} setItems={setNewValues} type="text"/>
-                )}
-              <button type="submit" className="project-form__submit">Add details</button>
-          </form>
+    <>
+    <Header/>
+      <section className="project-form__fields">
+        <div className = "project__title-section">
+            <img
+              className="project__header-arrow"
+              src={backArrow}
+              alt="back arrow"
+              onClick={() => navigate('/profile')}
+            />
+            <h1 className="project__title">Add {field}</h1>
+        </div>
+        <form className="form" onSubmit={handleAddForm}>
+              {/*About */}
+              {field == "about" ? (
+                  <input
+                      className="project-form__input-field"
+                      placeholder='About section'
+                      type="text"
+                      name={field}
+                      id={field}
+                      maxLength="300"
+                      value = {newValues}
+                      onChange = {(e) => setNewValues([e.target.value])}
+                  />
+                  ):(
+                    <DynamicForm label={field} name={field} items={newValues} setItems={setNewValues} type="text"/>
+                  )}
+                <button type="submit" className="project-form__submit">Submit added details</button>
+        </form>
     </section>
+    <Footer/>
+    </>
+
   );
 };
 

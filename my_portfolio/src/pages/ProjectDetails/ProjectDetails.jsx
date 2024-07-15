@@ -7,6 +7,9 @@ import backArrow from "../../assets/images/arrow_back.png"
 import graphs from "../../assets/images/graphs.png"
 import second_graphs from "../../assets/images/second_graphs.png"
 import ProjectEdit from '../../components/ProjectEdit/ProjectEdit';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+import edit_icon from "../../assets/images/edit_icon.png"
 
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
@@ -67,18 +70,18 @@ const ProjectDetails = () => {
   console.log("project from ProjectDetails",project);
 
   return loading? (<h1>Loading</h1>):(
-    <section className='project'>
+    <>
+    <Header/>
+    <section className='project-form__fields'>
         <div className='project__header'>
             <div className = "project__title-section">
               <img
-                className="project__header-arrow"
+                className="profile__icon"
                 src={backArrow}
                 alt="back arrow"
                 onClick={() => navigate('/dashboard')}
               />
               <h1 className="project__title">{project.title}</h1>
-              <button type = "button" onClick={() =>{ 
-                  openEditModal("title", project.title )}}> Edit </button>
             </div>
         </div>
         <div className="project-info">
@@ -86,57 +89,101 @@ const ProjectDetails = () => {
             <img src={graphs} alt="first project image"/>
             <img src={second_graphs} alt="first project image"/>
           </div>
-          <div className = 'project-info__section' >
-            <h2 className="project-info__label">Description</h2>
-            <p className = "project-info__description">{project.description}</p>
-            <button className ="edit-button" type ="button" onClick = {() => {
-              openEditModal("description", (project.description || ""))
-            }}>Edit</button>
-          </div>
-          <div className = "project-info__section">
-            <h2 className="project-info__label">Subject categories</h2>
-            <div className="project-info__tags">
-              {project.subject.map((subj) => (
-                <div className="project-info__tag" key={project.id}>
-                    {subj}
-                </div>
-                ))}
+
+          <div className = 'project-form__field' >
+            <div>
+              <h2 className="project-info__label">Description</h2>
+              <p className = "project-info__description">{project.description}</p>
             </div>
-            <button onClick={() => openEditModal("subject", project.subject || [])}>Edit</button>
+            <div>
+              <img
+                src={edit_icon}
+                alt="Edit"
+                className="edit-icon"
+                onClick={() => openEditModal("description", (project.description || ""))}
+              />
+            </div>
           </div>
+
+          <div className = "project-form__field">
+            <div>
+              <h2 className="project-info__label">Subject categories</h2>
+              <div className="project-info__tags">
+                {project.subject.map((subj) => (
+                  <div className="project-info__tag" key={project.id}>
+                      {subj}
+                  </div>
+                  ))}
+              </div>
+            </div>
+            <div>
+            <img
+              src={edit_icon}
+              alt="Edit"
+              className="edit-icon"
+              onClick={() => openEditModal("subject", project.subject || [])}
+            /> 
+            </div>
+          </div>
+
           {project.skills && (
-          <div className = "project-info__section">
-            <h2 className="project-info__label">Skills categories</h2>
-            <div className="project-info__tags">
-              {project.skills.map((skill) => (
-                <div className="project-info__tag" key={project.id}>
-                    {skill}
-                </div>
-                ))}
+          <div className = "project-form__field">
+            <div>
+              <h2 className="project-info__label">Skills categories</h2>
+              <div className="project-info__tags">
+                {project.skills.map((skill) => (
+                  <div className="project-info__tag" key={project.id}>
+                      {skill}
+                  </div>
+                  ))}
+              </div>
             </div>
-            <button onClick={() => openEditModal("skills", project.skills || [])}>Edit</button>
+            <div>
+              <img
+                src={edit_icon}
+                alt="Edit"
+                className="edit-icon"
+                onClick={() => openEditModal("skills", project.skills || [])}
+              />
+            </div>
+
           </div>
           )}
-          <div className = "project-info__section">
-            <h2 className="project-info__label">Visibility</h2>
-            <p>{project.visibility}</p>
-          </div>
-          {project.tags && (
-          <div className = "project-info__section">
-            <h2 className="project-info__label">Tags</h2>
-            {/*But did I make general tags?? */}
-            <div className="project-info__tags">
-              {project.tags.map((tag) => (
-                <div className="project-info__tag" key={project.id}>
-                    {tag}
-                </div>
-                ))}
+          <div className = "project-form__field">
+            <div>
+              <h2 className="project-info__label">Visibility</h2>
+              <p>{project.visibility}</p>
             </div>
-            <button onClick={() => openEditModal("tags", project.tags|| [])}>Edit</button>
+          </div>
+          
+          {project.tags && (
+          <div className = "project-form__field">
+            <div>
+              <h2 className="project-info__label">Tags</h2>
+              {/*But did I make general tags?? */}
+              <div className="project-info__tags">
+                {project.tags.map((tag) => (
+                  <div className="project-info__tag" key={project.id}>
+                      {tag}
+                  </div>
+                  ))}
+              </div>
+            </div>
+            <div>
+              <img
+                  src={edit_icon}
+                  alt="Edit"
+                  className="edit-icon"
+                  onClick={() => openEditModal("tags", project.tags || [])}
+                />
+            </div>
           </div>
           )}
         </div>
     </section>
+    <Footer/>
+    </>
+
   )
 };
 export default ProjectDetails;

@@ -8,6 +8,13 @@
     margin-bottom: $form-margin;
     border-radius: $border-radius;
     box-shadow: $box-shadow;
+
+    @include tablet{
+        width:50%;
+    }
+    @include desktop{
+        width:20%;
+    }
     
     &__main-image {
       width: 70%;
@@ -30,8 +37,13 @@
         @include flex(column,center,flex-start);
     }
 
-    &__title {
+    &__card-title {
         margin-bottom: $after-subheading-padding;
+        padding-bottom:0.5rem;
+        border-bottom:3px solid $light-grey;
+        width:100%;
+        margin-bottom:1rem;
+        color:$dark-blue;
         @include sub-header;
       }
 
@@ -48,7 +60,13 @@
     }
     &__label{
         font-weight: bold;
+        @include table-header;
     }
+    &__label-value{
+        color:$cloud;
+        @include body-small;
+    }
+
     &__tag{
         @include tag;
     }
@@ -57,5 +75,6 @@
         min-width:40%;
         padding-left:$mobile-side-margin;
         padding-right:$mobile-side-margin;
+        margin-top:1rem;
     }
 }

@@ -37,23 +37,19 @@ const Login = () => {
   return (
 
     <div className="login">
-      <Header/>
       <div className="login__card">
-        <div className = "login__tabs">
-          <button className="login__button--active">Login</button>
-          <button className="login__button">Sign Up</button>
-        </div>
+        <h2 className="login__title">Login to MyPortfolio</h2>
         <form onSubmit={handleLogin} className="form">
         <div className="form__entries">
           <label htmlFor = "email" className="form__label">Email:</label>
           <input type="text" id="email" name="email" className="form__input"/>
         </div>
         <div className="form__entries">
-          <label htmlFor = "password" className="form__label">Password:</label>
+          <label htmlFord = "password" className="form__label">Password:</label>
           <input type="password"  id="password" name="password"  className="form__input"/>
         </div>
         <div className="form__footer">
-            <a href="/enroll" className="form__footer-text">Create an Account</a>
+            <a href="/enroll" className="form__footer-text">Don't have an account yet?</a>
           </div>
         <button className="form__button" type="submit">
           Login

@@ -1,21 +1,20 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Header.scss';
 
-import img from "../../assets/images/graduate_icon.png"
-import "./Header.scss"
 const Header = () => {
   return (
-    <div className="header">
-        <div className='header__icon'>
-            <img
-                src={img}
-                alt="graduate icon"
-            />
-        </div>
-        <div className='header__title'>
-            <h1 className = "header__text">MyPortfolio</h1>
-        </div>
-    </div>
-  )
-}
+    <header className="header">
+      <div className="header__container">
+        <h1 className="header__title">My Portfolio</h1>
+        <nav className="header__nav">
+          <Link to="/dashboard" className="header__link">Dashboard</Link>
+          <Link to="/profile" className="header__link">Profile</Link>
+          <Link to="/upload-project" className="header__link">Upload</Link>
+        </nav>
+      </div>
+    </header>
+  );
+};
 
 export default Header;

@@ -1,0 +1,70 @@
+@use '../../styles/partials/mixins.scss' as *;
+@use '../../styles/partials/typography.scss' as *;
+@use '../../styles/partials/variables.scss' as *;
+@use '../../styles/partials/globals.scss' as *;
+
+.profile {
+  padding: 2rem;
+  background-color: $light-grey;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    &-arrow {
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    &-title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
+  &__section {
+    margin-bottom: 2rem;
+
+    &-label {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    &-content {
+      font-size: 1rem;
+      color: $dark-blue;
+      background-color: $white;
+      padding: 1rem;
+      border-radius: $border-radius;
+    }
+
+    &-button {
+      @include cta-primary;
+      margin-right: 1rem;
+    }
+
+    &-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      &-tag {
+        background-color: $light-grey;
+        color: $white;
+        padding: 0.5rem 1rem;
+        border-radius: $border-radius;
+      }
+    }
+  }
+
+  &__icon {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+}
+

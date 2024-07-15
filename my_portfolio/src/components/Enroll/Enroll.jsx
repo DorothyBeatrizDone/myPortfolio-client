@@ -52,14 +52,8 @@ const Enroll = () => {
 
   return (
     <div className="login">
-      <Header/>
       <div className= "login__card">
-        <div className = "login__tabs">
-          <button className="login__button">Login</button>
-          <button type ="button" className = "login__button --active" onClick ={() =>{
-            navigate("/login")
-          }}>Sign Up</button>
-        </div>
+        <h2 className="login__title">Enroll in MyPortfolio</h2>
         <form onSubmit={handleEnroll} className="form">
         <div className="form__entries">
           <label htmlFor = "email" className="form__label">Email:</label>
@@ -79,6 +73,7 @@ const Enroll = () => {
           <label className="form__label" htmlFor = "confirmPassword">Confirm Password: </label>
           <input className="form__input" type="password" name="confirmPassword" id="confirmPassword"/>
         </div>
+        <Link to="/login">Already have an account?</Link>
         <button className="form__button" type="submit">
           Enroll
         </button>
@@ -96,7 +91,6 @@ const Enroll = () => {
           {error}
         </label>
       )}
-      <Link to="/login">Login</Link>
     </div>
   );
 };

@@ -5,6 +5,7 @@
 
 .button-add{
     @include cta-primary;
+    align-self: center;
 }
 
 .dynamic-form{

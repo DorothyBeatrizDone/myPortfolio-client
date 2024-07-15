@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProjectUpload from '../ProjectUpload/ProjectUpload';
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import './Dashboard.scss';
 import { useNavigate } from 'react-router-dom';
-
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
 const baseUrl = `http://${host}:${PORT}`;
@@ -55,20 +56,29 @@ const Dashboard = () => {
 
   return isLoading ?
     (<h1>Loading</h1>):(
-    <section className="dashboard">
-      <div className="dashboard__header">
-        <h1 className="dashboard__title">Dashboard</h1>
+    <>
+      <Header/>
+      <div className="dashboard">
+      <div className='project-form__fields'>
+        <div className="create-project__header">
+          <h1 className="dashboard__title">Your Dashboard</h1>
+        </div>
+        <div className = "project-list">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+        <button type = "button" className = "dashboard__button-add" onClick={() =>{
+          navigate("/upload-project");
+        }}> Add new project</button>
       </div>
-      <div className = "project-list">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
-      <button type = "button" className = "dashboard__button-add" onClick={() =>{
-        navigate("/upload-project");
-      }}> Add new project</button>
-      {/*<ProjectUpload onProjectCreate={fetchProjects} />*/}
-    </section>
+
+    </div>
+    <Footer/>
+
+
+    </>
+
   );
 };
 
