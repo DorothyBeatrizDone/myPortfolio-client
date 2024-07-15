@@ -4,6 +4,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const host = import.meta.env.VITE_SERVER_HOST;
 const PORT = import.meta.env.VITE_SERVER_PORT;
+import backArrow from "../../assets/images/arrow_back.png";
+
 const baseUrl = `http://${host}:${PORT}`;
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -109,6 +111,13 @@ const ProjectEdit = ({setProject, project}) => {
     <Header/>
     <section className="project-form__fields">
       <div className="create-project__header">
+        <img
+            className="profile__icon"
+            src={backArrow}
+            alt="back arrow"
+            onClick={() => navigate(`/project/${id}`)}
+          />
+        
         <h1 className="dashboard__title">Edit {field}</h1>
       </div>
         <form onSubmit = {handleSave}>
