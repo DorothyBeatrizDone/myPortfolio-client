@@ -23,7 +23,7 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
   const [addedValues, setAddedValues] = useState(values);
 
   //console.log("the query is", query);
-  console.log('the new field is ', field);
+  //console.log('the new field is ', field);
 
   //console.log("inside profile add type field", typeof(field));
   // console.log("stringified field", JSON.stringify(field));
@@ -34,7 +34,7 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
   const [failedAuth, setFailedAuth] = useState(false);
   
   const token = sessionStorage.getItem("JWTtoken");
-  console.log(token);
+  //console.log(token);
   useEffect(() => {
     if (!token) {
       setFailedAuth(true);
@@ -46,23 +46,23 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
     e.preventDefault();
     let addedValue;
 
-    console.log("just below add form userInfo", userInfo)
+    //console.log("just below add form userInfo", userInfo)
     if (field == "about"){
       //the about section is a string, but newValues is an array
       addedValue = newValues.join(",");
-      console.log("inside about condition")
+      //console.log("inside about condition")
     }
     //get all the elements of the array for that given field
     //example skills = [a, b, c]
     else{
       //get all the elements of the array for that given field
       //example skills = [a, b, c]
-      console.log("userInfo", userInfo);
+      //console.log("userInfo", userInfo);
       
       if (!addedValues) {
         //there are no current values for that field.
         addedValue = [...newValues];
-        console.log("added values ", addedValue)
+        //console.log("added values ", addedValue)
       } else {
         //add the newValues to the back of the array
         addedValue = [...addedValues, ...newValues];
@@ -84,7 +84,7 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
         }
       });
 
-      console.log("bottom handleAddForm")
+      //console.log("bottom handleAddForm")
       setUserInfo(response.data);
       setIsLoading(false);
       navigate("/profile");

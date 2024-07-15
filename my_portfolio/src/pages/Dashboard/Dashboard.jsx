@@ -32,11 +32,11 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("dashboard list of projects", response.data);
+        //console.log("dashboard list of projects", response.data);
         setIsLoading(false);
         setProjects(response.data);
       } catch (err) {
-        console.log('Error fetching projects:', err);
+        //console.log('Error fetching projects:', err);
       }
     };
     fetchProjects();

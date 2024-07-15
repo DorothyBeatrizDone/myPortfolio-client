@@ -12,7 +12,7 @@ import Footer from "../Footer/Footer";
 // Profit Edit will either modify (save) or delete the section
 
 const ProjectEdit = ({setProject, project}) => {
-    console.log("project inside project edit", project);
+    //console.log("project inside project edit", project);
     const navigate = useNavigate();
     const { id } = useParams();
     const projectUrl = `${baseUrl}/projects/${id}`;
@@ -20,7 +20,7 @@ const ProjectEdit = ({setProject, project}) => {
     const query = new URLSearchParams(location.search);
     const field = query.get("field");
     const value = query.get("value");
-    console.log("field in project edit", field);
+    //console.log("field in project edit", field);
     
     const [error, setError] = useState("");
     const [editValues, setEditValues] = useState(value);
@@ -68,12 +68,12 @@ const ProjectEdit = ({setProject, project}) => {
         e.preventDefault();
  
         const updatedValue = editValues;
-        console.log("updatedValue", updatedValue);
+        //console.log("updatedValue", updatedValue);
         let updatedSection = { [field]: updatedValue };
         if (field !== "about"){
           updatedSection = updatedSection[field].split(",");
         }
-        console.log("updatedSection", updatedSection);
+        //console.log("updatedSection", updatedSection);
 
         try {
           const response = await axios.patch(projectUrl, updatedSection, {
@@ -81,14 +81,14 @@ const ProjectEdit = ({setProject, project}) => {
               Authorization: `Bearer ${token}`
             }
         });
-        console.log("project edit response.data", response.data);
+        //console.log("project edit response.data", response.data);
         setProject(response.data);
         navigate(`/project/${id}`);
       } catch (error) {
         setError('Error updating your project', error);
       }
     };
-    console.log("project edit entire project?", project);
+    //console.log("project edit entire project?", project);
 
     if (failedAuth) {
       return (
@@ -109,7 +109,7 @@ const ProjectEdit = ({setProject, project}) => {
     return (
     <>
     <Header/>
-    <section className="project-form__fields">
+    <div className="project-form__fields">
       <div className="create-project__header">
         <img
             className="profile__icon"
@@ -126,7 +126,7 @@ const ProjectEdit = ({setProject, project}) => {
           <button type="submit" className="button-add">Save changes</button>
           <button type="button" className="button-add" onClick={() => handleDelete(field)}>Delete {field}</button>
         </form>
-      </section>
+      </div>
     <Footer/>
     </>
 

@@ -23,7 +23,7 @@ const ProjectUpload = () => {
   //not sure why we need useEffect?
   useEffect(() =>{
     const token = sessionStorage.getItem("JWTtoken");
-    console.log("token is", token);
+    //console.log("token is", token);
       if (!token) {
         setFailedAuth(true);
       }
@@ -35,7 +35,7 @@ const ProjectUpload = () => {
   const handleFormSubmit = async(e) => {
     e.preventDefault();
     const token = sessionStorage.getItem("JWTtoken");
-    console.log("elements", e.target.elements);
+    //console.log("elements", e.target.elements);
 
     const subjectsArray = subject;
     const uploadedForm = {
@@ -50,7 +50,7 @@ const ProjectUpload = () => {
       description: e.target.projectDescription.value,
     };
 
-    console.log('uploadedForm:', uploadedForm);
+    //console.log('uploadedForm:', uploadedForm);
     try {
       await axios.post(`${SERVER_URL}/projects/`, uploadedForm, {
           headers: {
@@ -69,10 +69,10 @@ const ProjectUpload = () => {
         setError('Error creating a new project.');
     }
   }
-  console.log("subjects", subject);
-  console.log("skills", skills);
-  console.log("tags",tags);
-  console.log("files", files);
+  //console.log("subjects", subject);
+  //console.log("skills", skills);
+  //console.log("tags",tags);
+  //console.log("files", files);
 
   return failedAuth ?(
       <p>Please log in to create a project.</p>

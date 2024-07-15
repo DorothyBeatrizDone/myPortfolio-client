@@ -51,9 +51,9 @@ const ProfileEdit = ({setUserInfo, userInfo}) => {
         e.preventDefault();
  
         const updatedValue = editValues;
-        console.log("updatedValue", updatedValue);
+        //console.log("updatedValue", updatedValue);
         const updatedSection = { [field]: updatedValue };
-        console.log("updatedSection", updatedSection);
+        //console.log("updatedSection", updatedSection);
 
         try {
           const response = await axios.patch(profileUrl, updatedSection, {

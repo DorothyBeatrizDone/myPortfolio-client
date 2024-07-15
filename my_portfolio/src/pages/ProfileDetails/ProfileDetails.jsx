@@ -67,8 +67,8 @@ const ProfileDetails = () => {
     //For lists, we need to have a current account of the elements in the list.
     navigate(`/profile/add?field=${field}&value=${encodeURIComponent(value)}`)
   };
-  console.log("userInfo", userInfo);
-  console.log("userInfo.skills", userInfo.skills);
+  //console.log("userInfo", userInfo);
+  //console.log("userInfo.skills", userInfo.skills);
 
   
   return failedAuth ? (

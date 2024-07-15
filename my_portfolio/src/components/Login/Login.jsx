@@ -23,11 +23,11 @@ const Login = () => {
         password: event.target.password.value,
       });
 
-      console.log(response.data);
+      //console.log(response.data);
       sessionStorage.setItem("JWTtoken", response.data.token);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setError(
         `${error.response.data.error.message}. Please check all fields.`
       );

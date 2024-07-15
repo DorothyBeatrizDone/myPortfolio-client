@@ -45,7 +45,6 @@ const Enroll = () => {
       await axios.post(enrollURL, userInput);
       navigate("/login");
     } catch (error) {
-      //console.log(error);
       setError(`${error.message}. What did you mess up.`); //".message" part of error
     }
   };

@@ -6,7 +6,7 @@
   const isValidPhoneNumber = (phone) => {
     const phonePattern = /^(\+\d{1,2}\s)?\(?\d{3}\)?[-\s.]?\d{3}[-\s.]?\d{4}$/;
     if (!phonePattern.test(phone)) {
-      console.log(isValidPhoneNumber(phone));
+      //console.log(isValidPhoneNumber(phone));
       alert('Please enter a valid phone number.');
       //return true;
       return false;

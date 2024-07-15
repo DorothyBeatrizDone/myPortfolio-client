@@ -67,7 +67,7 @@ const ProjectDetails = () => {
   }
 
   if (error) return <p>Error loading project details</p>;
-  console.log("project from ProjectDetails",project);
+  //console.log("project from ProjectDetails",project);
 
   return loading? (<h1>Loading</h1>):(
     <>
