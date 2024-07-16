@@ -20,13 +20,26 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
   const query  = new URLSearchParams(location.search);
   const field = query.get("field");
   const values = query.get("value");
-  const [addedValues, setAddedValues] = useState(values);
+
+  //remember to add this to utilities!
+  const processLists = (elems) =>{
+    if (!elems) return [];
+    if (elems.length === 1) return [elems];
+    return elems.split(",");
+  };
+
+  const valsList  = processLists(values);
+  const [addedValues, setAddedValues] = useState(valsList);
+
+  //addedValues are now lists!
 
   //console.log("the query is", query);
   //console.log('the new field is ', field);
 
   //console.log("inside profile add type field", typeof(field));
   // console.log("stringified field", JSON.stringify(field));
+
+  console.log("addedValues", addedValues); //coming in as a string??
 
   const [newValues, setNewValues] = useState([]);
   const [error, setError] = useState("");
@@ -40,6 +53,7 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
       setFailedAuth(true);
       return;
     }
+    setIsLoading(false);
   }, [token]);
 
   const handleAddForm = async(e)=>{
@@ -62,10 +76,13 @@ const ProfileAdd = ({setUserInfo, userInfo}) => {
       if (!addedValues) {
         //there are no current values for that field.
         addedValue = [...newValues];
+        console.log("no values in list then", addedValue);
         //console.log("added values ", addedValue)
       } else {
         //add the newValues to the back of the array
         addedValue = [...addedValues, ...newValues];
+        console.log("values already in list then", addedValue);
+
       }
         
 

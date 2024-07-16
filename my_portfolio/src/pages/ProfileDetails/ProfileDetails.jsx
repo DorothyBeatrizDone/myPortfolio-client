@@ -62,15 +62,44 @@ const ProfileDetails = () => {
 
   const openAddModal = (field, value) => {
     setCurrentEditField(field);
-    setCurrentValue(value);
+    console.log("openAddModal value before", value); //undefined
+    console.log("Array.isArray(value)", Array.isArray(value));
+
+    Array.isArray(value) ? (setCurrentValue(value)) : ("");
+    console.log("openAddModal value after", value);
     //https://reactnavigation.org/docs/use-navigation-state/
     //For lists, we need to have a current account of the elements in the list.
-    navigate(`/profile/add?field=${field}&value=${encodeURIComponent(value)}`)
+    navigate(`/profile/add?field=${field}&value=${value}`)
   };
-  //console.log("userInfo", userInfo);
-  //console.log("userInfo.skills", userInfo.skills);
 
+  //function processes strings to lists
+  /* a -> [a]
+  _ -> []
+  a,b -> [a,b]*/
+  const processLists = (elems) =>{
+    if (!Array.isArray(elems)){
+      if (!elems) return [];
+      else if (elems.length === 1) return [elems];
+      else return elems.split(",")
+    }
+    return elems;
+  };
   
+
+  console.log("userInfo", userInfo);
+  console.log("userInfo.skills", userInfo.skills);
+  const userSkills = processLists(userInfo.skills);
+  const userLanguages = processLists(userInfo.languages_spoken);
+
+  console.log("userInfo.languages_spoken", userInfo.languages_spoken);
+  console.log("userSkills", userSkills);
+  //console.log("userInfo.skills includes", userInfo.skills.includes(","));
+
+  console.log("userLanguages", userLanguages);
+ // console.log("userInfo.languages_spoken", userInfo.languages_spoken.includes(","));
+
+  //console.log("userInfo.languages_spoken with split", userInfo.languages_spoken.split(" "));
+
   return failedAuth ? (
     <main>
       <p>You must be logged in to see this page.</p>
@@ -120,7 +149,7 @@ const ProfileDetails = () => {
                 src={add_icon}
                 alt="Add"
                 className="profile__icon"
-                onClick={() => openAddModal("about")}
+                onClick={() => openAddModal("about", "")}
             />
             )}
           </div>
@@ -132,11 +161,12 @@ const ProfileDetails = () => {
           <div>
             <h2 className="project-info__label">Skills</h2>
               <div className="project-info__tags">
-                {userInfo.skills && userInfo.skills.split(",").map((skill,index) => (
+                {userInfo.skills && userSkills.map((skill,index) => (
                   <div className="button-add" key={index}>
                     {skill}
                   </div>
                 ))}
+
               </div>
           </div>
 
@@ -145,13 +175,13 @@ const ProfileDetails = () => {
                 src={edit_icon}
                 alt="Edit"
                 className="profile__icon"
-                onClick={() => openEditModal("skills", userInfo.skills || [])}
+                onClick={() => openEditModal("skills", userSkills)}
               />
               <img
                 src={add_icon}
                 alt="Add"
                 className="profile__icon"
-                onClick={() => openAddModal("skills")}
+                onClick={() => openAddModal("skills", userSkills)}
               />
           </div>
         </section>
@@ -161,7 +191,7 @@ const ProfileDetails = () => {
           <div >
             <h2 className="project-info__label">Languages</h2>
             <div className="project-info__tags">
-              {userInfo.languages_spoken && userInfo.languages_spoken.split(",").map((language, index) => (
+              {userInfo.languages_spoken && userLanguages.map((language, index) => (
                 <div className="button-add" key={index}>
                   {language}
                 </div>
@@ -182,7 +212,7 @@ const ProfileDetails = () => {
               src={add_icon}
               alt="Add"
               className="profile__icon"
-              onClick={() => openAddModal("languages_spoken")}
+              onClick={() => openAddModal("languages_spoken", userLanguages)}
             />
           </div>
         </section>
