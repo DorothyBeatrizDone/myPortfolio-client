@@ -16,14 +16,17 @@ const ProjectEdit = ({setProject, project}) => {
     const navigate = useNavigate();
     const { id } = useParams();
     const projectUrl = `${baseUrl}/projects/${id}`;
+    console.log("projectUrl", projectUrl);
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const field = query.get("field");
     const value = query.get("value");
-    //console.log("field in project edit", field);
+    console.log("field in project edit", field); //description
+    console.log("value in project edit", value); //third description
     
     const [error, setError] = useState("");
-    const [editValues, setEditValues] = useState(value);
+    const [editValues, setEditValues] = useState(value); //another description
+    console.log("before editValues", editValues);
     const [failedAuth, setFailedAuth] = useState(false);
     
     
@@ -67,21 +70,17 @@ const ProjectEdit = ({setProject, project}) => {
         //might need to refresh my memory on response.data syntax!
         e.preventDefault();
  
-        const updatedValue = editValues;
+        //const updatedValue = editValues;
         //console.log("updatedValue", updatedValue);
-        let updatedSection = { [field]: updatedValue };
-        if (field !== "about"){
-          updatedSection = updatedSection[field].split(",");
-        }
-        //console.log("updatedSection", updatedSection);
-
+        let updatedSection = { [field]: editValues };
+        console.log("updatedSection", updatedSection);
         try {
           const response = await axios.patch(projectUrl, updatedSection, {
             headers: {
               Authorization: `Bearer ${token}`
             }
         });
-        //console.log("project edit response.data", response.data);
+        console.log("project edit response.data", response.data);
         setProject(response.data);
         navigate(`/project/${id}`);
       } catch (error) {

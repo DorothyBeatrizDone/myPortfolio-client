@@ -55,6 +55,7 @@ const ProjectDetails = () => {
   const openEditModal = (field, value) => {
     setCurrentEditField(field);
     setCurrentValue(value);
+    console.log("value in open edit modal is", value); //third description
     navigate(`/project/${id}/edit?field=${field}&value=${encodeURIComponent(value)}`);
   };
   
