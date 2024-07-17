@@ -1,5 +1,5 @@
 # Project Title
-MyPortfolio, added on 2024-07-14. This is an exact copy of the proposal I submitted on Synapse. I forgot to add a ReadMe for the front-end as well. For completness, I now include it.
+MyPortfolio
 
 ## Overview
 
